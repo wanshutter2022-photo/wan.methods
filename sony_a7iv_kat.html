@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sony α7 IV 操作ガイド｜カメラ講座</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f5f5f5;
+    --surface2: #ececec;
+    --border: #ddd;
+    --text: #1a1a1a;
+    --text-sub: #555;
+    --text-light: #888;
+    --yellow: #e69500;
+    --blue: #1d4ed8;
+    --green: #15803d;
+    --tag-menu-bg: #dbeafe; --tag-menu-fg: #1e40af;
+    --tag-btn-bg:  #fef3c7; --tag-btn-fg:  #92400e;
+    --tag-tip-bg:  #dcfce7; --tag-tip-fg:  #166534;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* HEADER */
+  header {
+    background:#fff; border-bottom:2px solid var(--border);
+    padding:16px 24px; position:sticky; top:0; z-index:100;
+    display:flex; align-items:center; gap:14px;
+  }
+  .brand { font-family:'DM Mono',monospace; font-size:1.1rem; font-weight:500; letter-spacing:2px; }
+  .model { font-size:0.8rem; color:var(--text-light); margin-top:1px; }
+  .header-tag {
+    margin-left:auto; background:var(--surface2); color:var(--text-sub);
+    font-size:0.78rem; padding:4px 12px; border-radius:20px; font-weight:500; white-space:nowrap;
+  }
+
+  /* TABS */
+  .tabs { display:flex; background:#fff; border-bottom:1px solid var(--border); overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab-btn {
+    padding:14px 20px; background:none; border:none; color:var(--text-light);
+    font-family:'Noto Sans JP',sans-serif; font-size:0.9rem; font-weight:500;
+    cursor:pointer; white-space:nowrap; border-bottom:3px solid transparent;
+    transition:color .15s, border-color .15s; line-height:1;
+  }
+  .tab-btn:hover { color:var(--text); }
+  .tab-btn.active { color:var(--text); border-bottom-color:var(--text); }
+
+  /* CONTENT */
+  .content { max-width:760px; margin:0 auto; padding:32px 20px 80px; }
+  .panel { display:none; }
+  .panel.active { display:block; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom:28px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .page-title { font-size:1.6rem; font-weight:700; margin-bottom:6px; }
+  .page-sub { font-size:1rem; color:var(--text-sub); }
+  .difficulty {
+    display:inline-flex; align-items:center; gap:8px; margin-top:12px;
+    font-size:0.85rem; color:var(--text-sub);
+    background:var(--surface); padding:5px 12px; border-radius:20px;
+  }
+  .stars { color:var(--yellow); font-size:1rem; letter-spacing:2px; }
+  .stars .e { color:#ddd; }
+
+  /* STEPS */
+  .steps { display:flex; flex-direction:column; gap:14px; margin-bottom:28px; }
+  .step {
+    background:var(--surface); border-radius:12px;
+    padding:20px 20px 20px 18px; display:flex; gap:16px; align-items:flex-start;
+  }
+  .step-num {
+    font-family:'DM Mono',monospace; font-size:0.85rem; font-weight:500;
+    color:#fff; background:var(--text); min-width:28px; height:28px;
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; margin-top:3px;
+  }
+  .step-body { flex:1; }
+  .step-tag {
+    display:inline-block; font-size:0.72rem; font-weight:700;
+    padding:3px 10px; border-radius:4px; margin-bottom:6px; letter-spacing:.3px;
+  }
+  .tag-menu { background:var(--tag-menu-bg); color:var(--tag-menu-fg); }
+  .tag-btn  { background:var(--tag-btn-bg);  color:var(--tag-btn-fg); }
+  .tag-tip  { background:var(--tag-tip-bg);  color:var(--tag-tip-fg); }
+  .step-title { font-size:1.05rem; font-weight:700; margin-bottom:5px; }
+  .step-desc  { font-size:0.95rem; color:var(--text-sub); line-height:1.8; }
+  .step-desc strong { color:var(--text); font-weight:700; }
+
+  /* POINT BOX */
+  .point { background:#f0f9ff; border:1px solid #bae6fd; border-radius:12px; padding:18px 20px; margin-bottom:24px; }
+  .point-label { font-size:0.85rem; font-weight:700; color:#0369a1; margin-bottom:10px; }
+  .point ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .point li { font-size:0.95rem; color:#0c4a6e; padding-left:20px; position:relative; line-height:1.75; }
+  .point li::before { content:"✔"; position:absolute; left:0; color:#0ea5e9; font-size:0.85rem; }
+
+  /* CONCEPT BOX */
+  .concept { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:18px 20px; margin-bottom:24px; }
+  .concept-label { font-size:0.8rem; font-weight:700; color:#15803d; margin-bottom:6px; }
+  .concept-title { font-size:1.1rem; font-weight:700; margin-bottom:6px; }
+  .concept-desc { font-size:0.95rem; color:var(--text-sub); line-height:1.8; }
+  .concept-desc strong { color:var(--text); font-weight:700; }
+
+  /* COMPARE */
+  .compare { border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:24px; }
+  .compare-head { background:var(--surface); padding:12px 18px; font-size:0.85rem; font-weight:700; color:var(--text-sub); border-bottom:1px solid var(--border); }
+  .compare-body { display:grid; grid-template-columns:1fr 1fr; }
+  .compare-col { padding:16px 18px; font-size:0.92rem; color:var(--text-sub); line-height:1.9; }
+  .compare-col:first-child { border-right:1px solid var(--border); }
+  .compare-col-title { font-size:0.85rem; font-weight:700; color:var(--text); margin-bottom:8px; }
+  .good { color:var(--green); font-weight:600; }
+  .meh  { color:var(--text-light); }
+
+  /* INFO CARD */
+  .info-card {
+    background:var(--surface); border-radius:12px; padding:18px 20px;
+    margin-top:16px; min-height:90px; border-left:4px solid var(--text);
+  }
+  .info-card-label { font-size:0.75rem; font-weight:700; color:var(--text-light); letter-spacing:1px; text-transform:uppercase; font-family:'DM Mono',monospace; margin-bottom:6px; }
+  .info-card-name { font-size:1.05rem; font-weight:700; margin-bottom:6px; }
+  .info-card-desc { font-size:0.95rem; color:var(--text-sub); line-height:1.8; }
+  .info-card-tip {
+    display:none; margin-top:12px; font-size:0.9rem; color:#0c4a6e;
+    background:#f0f9ff; border:1px solid #bae6fd; padding:12px 14px; border-radius:8px; line-height:1.75;
+  }
+  .info-card-tip::before { content:"💡 ポイント"; font-weight:700; display:block; font-size:0.78rem; margin-bottom:4px; color:#0369a1; }
+
+  /* CAMERA SVG */
+  .camera-wrap { max-width:560px; margin:0 auto 16px; }
+  svg.camera-svg { width:100%; height:auto; display:block; }
+  .hotspot { cursor:pointer; }
+  .hotspot .hs-outer { transition:opacity .15s; }
+  .hotspot:hover .hs-outer { opacity:.25; }
+  .hotspot.active .hs-inner { fill:#1d4ed8; }
+  .hotspot.active .hs-num  { fill:#fff; }
+
+  /* OVERVIEW GRID */
+  .ov-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-top:10px; }
+  .ov-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; cursor:pointer; transition:background .15s,border-color .15s; }
+  .ov-card:hover { background:var(--surface2); border-color:#bbb; }
+  .ov-icon  { font-size:1.5rem; margin-bottom:8px; }
+  .ov-title { font-size:0.95rem; font-weight:700; margin-bottom:3px; }
+  .ov-stars { font-size:0.72rem; color:var(--yellow); }
+  .ov-stars .e { color:#ddd; }
+  .ov-desc  { font-size:0.78rem; color:var(--text-light); margin-top:4px; line-height:1.5; }
+
+  /* GRID DIAGRAM */
+  .grid-diagram { background:var(--surface); border-radius:12px; padding:20px; margin-bottom:24px; text-align:center; }
+  .grid-diagram-title { font-size:0.9rem; font-weight:700; color:var(--text-sub); margin-bottom:14px; }
+
+  /* COPYRIGHT FOOTER */
+  .copyright {
+    margin-top: 48px;
+    padding: 20px 16px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+  .copyright-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .copyright-warning {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 6px;
+  }
+
+  /* RESPONSIVE */
+  @media (min-width:640px) {
+    body { font-size:18px; }
+    .page-title { font-size:1.9rem; }
+    .step-title { font-size:1.1rem; }
+    .step-desc, .point li, .concept-desc, .info-card-desc { font-size:1rem; }
+    .tab-btn { font-size:0.95rem; padding:16px 24px; }
+  }
+  @media (max-width:480px) {
+    .content { padding:22px 14px 70px; }
+    .tab-btn { padding:12px 14px; font-size:0.85rem; }
+    .compare-col { font-size:0.85rem; padding:12px; }
+    .step { padding:16px 14px; gap:12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">SONY α7 IV</div>
+    <div class="model">カメラ操作ガイド</div>
+  </div>
+  <div class="header-tag">📷 加藤 由美子 様 専用</div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('overview')">🏠 はじめに</button>
+  <button class="tab-btn" onclick="showTab('dial')">ダイヤル</button>
+  <button class="tab-btn" onclick="showTab('drive')">連写</button>
+  <button class="tab-btn" onclick="showTab('focus')">ピント</button>
+  <button class="tab-btn" onclick="showTab('area')">フォーカスエリア</button>
+  <button class="tab-btn" onclick="showTab('grid')">画面表示</button>
+  <button class="tab-btn" onclick="showTab('thumbaf')">親指AF</button>
+</div>
+
+<div class="content">
+
+  <!-- OVERVIEW -->
+  <div class="panel active" id="panel-overview">
+    <div class="page-header">
+      <div class="page-title">Sony α7 IV 操作ガイド</div>
+      <div class="page-sub">わんちゃん・猫ちゃん・人物撮影向け</div>
+    </div>
+    <div style="font-size:0.8rem;color:var(--text-light);letter-spacing:1px;margin-bottom:10px;font-family:'DM Mono',monospace;">カメラ背面図 ── 番号をタップして確認</div>
+    <div class="camera-wrap">
+      <svg class="camera-svg" viewBox="0 0 640 460" xmlns="http://www.w3.org/2000/svg">
+        <!-- 本体外形 -->
+        <rect x="8" y="80" width="624" height="370" rx="14" fill="#2a2a2a" stroke="#1a1a1a" stroke-width="1.5"/>
+
+        <!-- EVF(中央上部に突き出た形) -->
+        <rect x="240" y="40" width="140" height="80" rx="8" fill="#1a1a1a" stroke="#0a0a0a" stroke-width="1.5"/>
+        <rect x="255" y="55" width="110" height="50" rx="4" fill="#0a0a0a"/>
+        <text x="310" y="86" text-anchor="middle" fill="#666" font-size="11" font-family="Noto Sans JP">EVF</text>
+
+        <!-- 視度調整ダイヤル(EVFの右隣) -->
+        <circle cx="395" cy="105" r="9" fill="#3a3a3a" stroke="#1a1a1a"/>
+
+        <!-- 静止画/動画/S&Q切換ダイヤル(EVF右奥) -->
+        <circle cx="430" cy="75" r="22" fill="#3a3a3a" stroke="#1a1a1a" stroke-width="1"/>
+        <text x="430" y="73" text-anchor="middle" fill="#888" font-size="7" font-family="Noto Sans JP">📷▶S&Q</text>
+        <text x="430" y="84" text-anchor="middle" fill="#888" font-size="7" font-family="Noto Sans JP">切換</text>
+
+        <!-- モードダイヤル(右上、その上) -->
+        <circle cx="490" cy="55" r="22" fill="#3a3a3a" stroke="#1a1a1a" stroke-width="1"/>
+        <text x="490" y="59" text-anchor="middle" fill="#888" font-size="8" font-family="Noto Sans JP">モード</text>
+
+        <!-- 露出補正ダイヤル(右端、刻印なし) -->
+        <circle cx="555" cy="65" r="20" fill="#3a3a3a" stroke="#1a1a1a" stroke-width="1"/>
+        <text x="555" y="69" text-anchor="middle" fill="#888" font-size="7" font-family="Noto Sans JP">露出補正</text>
+
+        <!-- C3ボタン(左上、液晶の左上端) -->
+        <circle cx="50" cy="118" r="11" fill="#2a2a2a" stroke="#1a1a1a"/>
+        <text x="50" y="122" text-anchor="middle" fill="#aaa" font-size="8" font-family="Noto Sans JP">C3</text>
+
+        <!-- MENUボタン(C3の右) -->
+        <rect x="80" y="108" width="48" height="20" rx="3" fill="#2a2a2a" stroke="#1a1a1a"/>
+        <text x="104" y="122" text-anchor="middle" fill="#aaa" font-size="9" font-family="Noto Sans JP">MENU</text>
+
+        <!-- C1ボタン(EVF下、AF-ONの左) -->
+        <circle cx="425" cy="135" r="11" fill="#2a2a2a" stroke="#1a1a1a"/>
+        <text x="425" y="139" text-anchor="middle" fill="#aaa" font-size="8" font-family="Noto Sans JP">C1</text>
+
+        <!-- AF-ONボタン(右上) -->
+        <circle cx="480" cy="135" r="14" fill="#2a2a2a" stroke="#1a1a1a"/>
+        <text x="480" y="139" text-anchor="middle" fill="#aaa" font-size="8" font-family="Noto Sans JP">AF-ON</text>
+
+        <!-- 拡大ボタン -->
+        <circle cx="520" cy="135" r="9" fill="#2a2a2a" stroke="#1a1a1a"/>
+        <text x="520" y="139" text-anchor="middle" fill="#aaa" font-size="9" font-family="Noto Sans JP">⊕</text>
+
+        <!-- 液晶モニター(本体の左寄り、バリアングル) -->
+        <rect x="40" y="158" width="340" height="240" rx="3" fill="#1a1a1a"/>
+        <rect x="44" y="162" width="332" height="232" rx="2" fill="#3a4a3a" opacity="0.6"/>
+        <text x="210" y="282" text-anchor="middle" fill="#666" font-size="13" font-family="Noto Sans JP">液晶モニター(バリアングル)</text>
+
+        <!-- マルチセレクター(ジョイスティック) -->
+        <circle cx="455" cy="175" r="14" fill="#3a3a3a" stroke="#1a1a1a"/>
+        <circle cx="455" cy="175" r="8" fill="#5a5a5a"/>
+        <text x="455" y="200" text-anchor="middle" fill="#888" font-size="7" font-family="Noto Sans JP">JS</text>
+
+        <!-- Fnボタン -->
+        <circle cx="455" cy="225" r="13" fill="#2a2a2a" stroke="#1a1a1a"/>
+        <text x="455" y="229" text-anchor="middle" fill="#aaa" font-size="10" font-family="Noto Sans JP">Fn</text>
+
+        <!-- 縮小ボタン -->
+        <circle cx="500" cy="225" r="9" fill="#2a2a2a" stroke="#1a1a1a"/>
+        <text x="500" y="229" text-anchor="middle" fill="#aaa" font-size="9" font-family="Noto Sans JP">⊖</text>
+
+        <!-- コントロールホイール(円形ダイヤル) -->
+        <circle cx="490" cy="310" r="55" fill="#2a2a2a" stroke="#1a1a1a" stroke-width="1.5"/>
+        <circle cx="490" cy="310" r="35" fill="#1a1a1a" stroke="#0a0a0a" stroke-width="1"/>
+        <circle cx="490" cy="310" r="14" fill="#3a3a3a" stroke="#1a1a1a"/>
+        <!-- ホイールラベル -->
+        <text x="490" y="265" text-anchor="middle" fill="#888" font-size="8" font-family="Noto Sans JP">DISP</text>
+        <text x="535" y="314" text-anchor="middle" fill="#888" font-size="8" font-family="Noto Sans JP">ISO</text>
+        <text x="490" y="358" text-anchor="middle" fill="#888" font-size="8" font-family="Noto Sans JP">C4</text>
+        <text x="445" y="314" text-anchor="middle" fill="#888" font-size="6.5" font-family="Noto Sans JP">ドライブ</text>
+
+        <!-- 再生ボタン(右下) -->
+        <circle cx="430" cy="395" r="11" fill="#2a2a2a" stroke="#1a1a1a"/>
+        <text x="430" y="399" text-anchor="middle" fill="#aaa" font-size="11" font-family="Noto Sans JP">▶</text>
+
+        <!-- ゴミ箱ボタン -->
+        <circle cx="480" cy="395" r="11" fill="#2a2a2a" stroke="#1a1a1a"/>
+        <text x="480" y="399" text-anchor="middle" fill="#aaa" font-size="10" font-family="Noto Sans JP">🗑</text>
+
+        <!-- HOTSPOTS -->
+        <g class="hotspot" id="hs-menu" onclick="showHotspot('menu')">
+          <circle class="hs-outer" cx="104" cy="118" r="20" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="104" cy="118" r="13" fill="#e69500"/>
+          <text class="hs-num" x="104" y="123" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">1</text>
+        </g>
+        <g class="hotspot" id="hs-mode" onclick="showHotspot('mode')">
+          <circle class="hs-outer" cx="490" cy="55" r="20" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="490" cy="55" r="13" fill="#e69500"/>
+          <text class="hs-num" x="490" y="60" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">2</text>
+        </g>
+        <g class="hotspot" id="hs-exp" onclick="showHotspot('exp')">
+          <circle class="hs-outer" cx="555" cy="65" r="20" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="555" cy="65" r="13" fill="#e69500"/>
+          <text class="hs-num" x="555" y="70" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">3</text>
+        </g>
+        <g class="hotspot" id="hs-afon" onclick="showHotspot('afon')">
+          <circle class="hs-outer" cx="480" cy="135" r="20" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="480" cy="135" r="13" fill="#e69500"/>
+          <text class="hs-num" x="480" y="140" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">4</text>
+        </g>
+        <g class="hotspot" id="hs-js" onclick="showHotspot('js')">
+          <circle class="hs-outer" cx="455" cy="175" r="20" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="455" cy="175" r="13" fill="#e69500"/>
+          <text class="hs-num" x="455" y="180" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">5</text>
+        </g>
+        <g class="hotspot" id="hs-fn" onclick="showHotspot('fn')">
+          <circle class="hs-outer" cx="455" cy="225" r="20" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="455" cy="225" r="13" fill="#e69500"/>
+          <text class="hs-num" x="455" y="230" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">6</text>
+        </g>
+        <g class="hotspot" id="hs-wheel" onclick="showHotspot('wheel')">
+          <circle class="hs-outer" cx="490" cy="310" r="20" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="490" cy="310" r="13" fill="#e69500"/>
+          <text class="hs-num" x="490" y="315" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">7</text>
+        </g>
+      </svg>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">ボタンの説明</div>
+      <div class="info-card-name" id="info-name">番号をタップして確認してみましょう</div>
+      <div class="info-card-desc" id="info-desc">図の中の番号をタップすると、そのボタンの役割と使い方が表示されます。</div>
+      <div class="info-card-tip" id="info-tip"></div>
+    </div>
+    <div style="font-size:0.8rem;color:var(--text-light);letter-spacing:1px;margin:32px 0 12px;font-family:'DM Mono',monospace;">このガイドで学ぶ操作</div>
+    <div class="ov-grid">
+      <div class="ov-card" onclick="showTab('dial')"><div class="ov-icon">🎛</div><div class="ov-title">ダイヤル操作</div><div class="ov-stars">★★<span class="e">★</span></div><div class="ov-desc">M・SS・F・ISOの設定</div></div>
+      <div class="ov-card" onclick="showTab('drive')"><div class="ov-icon">⚡</div><div class="ov-title">連写モード</div><div class="ov-stars">★<span class="e">★★</span></div><div class="ov-desc">動くコを逃さない設定</div></div>
+      <div class="ov-card" onclick="showTab('focus')"><div class="ov-icon">🎯</div><div class="ov-title">ピントの合わせ方</div><div class="ov-stars">★★<span class="e">★</span></div><div class="ov-desc">AF-S・AF-C・瞳AF</div></div>
+      <div class="ov-card" onclick="showTab('area')"><div class="ov-icon">🔲</div><div class="ov-title">フォーカスエリア</div><div class="ov-stars">★★<span class="e">★</span></div><div class="ov-desc">ワイド・ゾーン・スポット</div></div>
+      <div class="ov-card" onclick="showTab('grid')"><div class="ov-icon">⊞</div><div class="ov-title">画面表示</div><div class="ov-stars">★★<span class="e">★</span></div><div class="ov-desc">グリッド線とヒストグラム</div></div>
+      <div class="ov-card" onclick="showTab('thumbaf')"><div class="ov-icon">👍</div><div class="ov-title">親指AF</div><div class="ov-stars">★★★</div><div class="ov-desc">AF-ONボタンのカスタム</div></div>
+    </div>
+  </div>
+
+  <!-- DIAL -->
+  <div class="panel" id="panel-dial">
+    <div class="page-header">
+      <div class="page-title">ダイヤル操作</div>
+      <div class="page-sub">マニュアル撮影の基本 ── 露出の3要素を覚えよう</div>
+      <div class="difficulty"><span class="stars">★★<span class="e">★</span></span><span>中級</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">M</div><div class="step-body"><span class="step-tag tag-btn">モードダイヤル(カメラ上面)</span><div class="step-title">撮影モードを選ぶ</div><div class="step-desc">カメラ上面の <strong>モードダイヤル</strong> を回して撮影モードを選びます。<strong>M(マニュアル)</strong>なら全部自分で決める撮影。α7 IVには <strong>静止画/動画/S&Q切換ダイヤル</strong> もあるので、必ず <strong>静止画モード</strong> になっていることも確認してください。</div></div></div>
+      <div class="step"><div class="step-num">SS</div><div class="step-body"><span class="step-tag tag-btn">後ダイヤル(R・親指側)</span><div class="step-title">シャッタースピードを変える</div><div class="step-desc">α7 IVには <strong>前ダイヤル・後ダイヤル・コントロールホイール</strong> の3つがあり、Mモードでは <strong>後ダイヤル</strong> でSSを調整します。動きを止めるには <strong>1/500 以上</strong>、ペットには <strong>1/1000〜1/2000</strong> がおすすめ。</div></div></div>
+      <div class="step"><div class="step-num">F</div><div class="step-body"><span class="step-tag tag-btn">前ダイヤル(人差し指側)</span><div class="step-title">絞り(F値)を変える</div><div class="step-desc">シャッターボタン手前の <strong>前ダイヤル</strong> を人差し指で回します。F値が小さいほど(<strong>F1.4</strong>など)背景がぼけて主役が際立ちます。50/85/135mm単焦点なら開放F1.4〜1.8で印象的なボケが得られます。</div></div></div>
+      <div class="step"><div class="step-num">ISO</div><div class="step-body"><span class="step-tag tag-menu">Fn ボタン → ISO</span><div class="step-title">ISOを設定する</div><div class="step-desc"><strong>Fn ボタン</strong> を押してファンクションメニューを開き、ISO を選択します。または <strong>コントロールホイールの右ボタン</strong> でも直接呼び出せます。α7 IV は <strong>高感度に強い</strong> ので、ISO6400まで十分実用範囲です。</div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 撮影設定の目安</div><ul><li>屋外・昼間：SS 1/1000・F2.8〜4・ISO AUTO</li><li>室内・薄暗い：SS 1/500・F1.4〜2.8・ISO 1600〜6400</li><li>単焦点開放(F1.4)時はSS 1/1000以上を確保すると安心です</li></ul></div>
+  </div>
+
+  <!-- DRIVE -->
+  <div class="panel" id="panel-drive">
+    <div class="page-header">
+      <div class="page-title">連写モード</div>
+      <div class="page-sub">動き回るペット・子どもを連続撮影で逃さない</div>
+      <div class="difficulty"><span class="stars">★<span class="e">★★</span></span><span>初級</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-btn">コントロールホイール左ボタン</span><div class="step-title">ドライブモードを開く</div><div class="step-desc">コントロールホイールの <strong>左ボタン(ドライブモード)</strong> を押します。画面にモード選択肢が表示されます。MENU → 撮影 → ドライブモードからも設定可能。</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-btn">コントロールホイールで選択</span><div class="step-title">「連続撮影：Hi+」を選ぶ</div><div class="step-desc">コントロールホイールを回して <strong>連続撮影 Hi+(最高速)</strong> を選択。α7C II は最大 <strong>約10コマ／秒</strong> の連写ができます。</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-btn">シャッターボタン</span><div class="step-title">シャッターを押し続ける</div><div class="step-desc">シャッターを <strong>押し続けている間</strong>、連続して撮影されます。決定的な瞬間の前後をまとめて記録できます。</div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 連写のポイント</div><ul><li>SDカードは UHS-II または UHS-I V30 以上推奨</li><li>Hi+ より Hi のほうが枚数が抑えられ、後から選びやすい</li><li>撮った後に「一番いい1枚を選ぶ」練習もしてみましょう</li></ul></div>
+  </div>
+
+  <!-- FOCUS -->
+  <div class="panel" id="panel-focus">
+    <div class="page-header">
+      <div class="page-title">ピントの合わせ方</div>
+      <div class="page-sub">AFモードを使い分けて、止まったコ・動くコを撮り分けよう</div>
+      <div class="difficulty"><span class="stars">★★<span class="e">★</span></span><span>中級</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">S</div><div class="step-body"><span class="step-tag tag-tip">AF-S(シングルAF)</span><div class="step-title">止まっているとき ── AF-S</div><div class="step-desc">シャッター半押しでピントを合わせて <strong>固定</strong> します。寝ているわんちゃん・ポーズを決めた瞬間など <strong>動かない被写体</strong> に最適。合うと「ピピッ」と音が鳴ります。</div></div></div>
+      <div class="step"><div class="step-num">C</div><div class="step-body"><span class="step-tag tag-btn">AF-C(コンティニュアスAF)</span><div class="step-title">動いているとき ── AF-C</div><div class="step-desc">半押し中、動く被写体を <strong>追いかけてピントを合わせ続けます</strong>。走り回るわんちゃんには <strong>必ずこれ</strong>。α7C IIはAIプロセッシングユニット搭載で、追従精度が非常に高いです。</div></div></div>
+      <div class="step"><div class="step-num">切替</div><div class="step-body"><span class="step-tag tag-menu">MENU → フォーカス → AF/MF → フォーカスモード</span><div class="step-title">AFモードの切り替え方</div><div class="step-desc">MENUの <strong>「フォーカス」タブ</strong> から <strong>「AF/MF」 → 「フォーカスモード」</strong> で切り替えます。Fn メニューに割り当てておくのが最速です。</div></div></div>
+      <div class="step"><div class="step-num">👁</div><div class="step-body"><span class="step-tag tag-menu">MENU → フォーカス → 被写体認識</span><div class="step-title">リアルタイム瞳AFで動物AFを使う</div><div class="step-desc">α7 IVの <strong>リアルタイム瞳AF</strong> は犬・猫の <strong>目を瞬時に検出して追従</strong> します。「被写体認識」で <strong>「動物／鳥」</strong> を選択。AF-C と組み合わせれば最強です。85mm F1.4などの単焦点開放でも瞳にピントを外しません。</div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 ピント設定のポイント</div><ul><li>単焦点開放(F1.4・F1.8)でも瞳AFが食いつくので、ボケを最大限に活かせます</li><li>マルチセレクター(ジョイスティック)でフォーカス位置を素早く動かせます</li><li>被写体認識は「動物／鳥」と「人物」を撮影シーンで使い分けましょう</li><li>慣れている方は「親指AF」(AF-ON)と組み合わせるとさらに自由度MAX</li></ul></div>
+  </div>
+
+  <!-- AREA -->
+  <div class="panel" id="panel-area">
+    <div class="page-header">
+      <div class="page-title">フォーカスエリア</div>
+      <div class="page-sub">「どこにピントを合わせるか」の範囲を決める設定</div>
+      <div class="difficulty"><span class="stars">★★<span class="e">★</span></span><span>中級</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">開く</div><div class="step-body"><span class="step-tag tag-btn">Fn ボタン → フォーカスエリア</span><div class="step-title">Fn ボタンから開く</div><div class="step-desc"><strong>Fn ボタン</strong> を押してファンクションメニューを表示。フォーカスエリアを選んでコントロールホイールで変更します。</div></div></div>
+      <div class="step"><div class="step-num">W</div><div class="step-body"><span class="step-tag tag-tip">ワイド ── 被写体認識との相性◎</span><div class="step-title">ワイド</div><div class="step-desc">画面全体でカメラが <strong>自動的に被写体を選んでピント</strong> を合わせます。AI被写体認識と組み合わせれば、画面内のわんちゃんを自動で捕捉します。</div></div></div>
+      <div class="step"><div class="step-num">Z</div><div class="step-body"><span class="step-tag tag-btn">ゾーン</span><div class="step-title">ゾーン</div><div class="step-desc">画面内の特定のエリアを優先してピントを合わせます。<strong>ペットがいる位置が予測できる</strong> ときに便利です。</div></div></div>
+      <div class="step"><div class="step-num">●</div><div class="step-body"><span class="step-tag tag-menu">フレキシブルスポット</span><div class="step-title">スポット</div><div class="step-desc">タッチパネルで <strong>ピントを合わせたい場所を直接タップ</strong> できます。<strong>マルチセレクター(ジョイスティック)</strong> でも素早く移動可能。85mm/135mm単焦点で目だけにピントを合わせたい時に最も使います。</div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 フォーカスエリアのポイント</div><ul><li>α7 IV はジョイスティック搭載なので、スポットの位置移動が素早くできます</li><li>「フォーカスエリア限定」設定で、使うエリアだけに絞ると切替がスピーディに</li><li>単焦点撮影では「動物認識ON＋ワイド」または「スポット+ジョイスティック」が定番</li></ul></div>
+  </div>
+
+  <!-- DISPLAY (GRID + HISTOGRAM) -->
+  <div class="panel" id="panel-grid">
+    <div class="page-header">
+      <div class="page-title">画面表示</div>
+      <div class="page-sub">グリッド線とヒストグラムで「構図」と「明るさ」を見える化</div>
+      <div class="difficulty"><span class="stars">★★<span class="e">★</span></span><span>初級〜中級</span></div>
+    </div>
+
+    <!-- グリッド線セクション -->
+    <h3 style="font-size:1.15rem; font-weight:700; margin:8px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--text);">⊞ グリッド線 ── 三分割法で構図を決める</h3>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-menu">MENU ボタン</span><div class="step-title">MENU ボタンを押す</div><div class="step-desc">上部の <strong>MENU ボタン</strong> を押してメニュー画面を表示します。</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-menu">撮影 → 撮影画面表示 → グリッドライン表示</span><div class="step-title">グリッドライン表示を選ぶ</div><div class="step-desc"><strong>「撮影」タブ → 「撮影画面表示」 → 「グリッドライン表示」</strong> を「入」にします。次に「グリッドラインの種類」で形式を選択します。</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-tip">種類を選ぶ</span><div class="step-title">「3分割」を選ぶ</div><div class="step-desc"><strong>「3分割」</strong> を選択します。画面が9つに分割され、線の交点が <strong>被写体を置くとキレイに見える位置</strong>(三分割法のポイント)になります。</div></div></div>
+    </div>
+    <div class="grid-diagram">
+      <div class="grid-diagram-title">三分割法 ── 黄色の交点に被写体の目を合わせると◎</div>
+      <svg viewBox="0 0 360 240" width="100%" style="max-width:380px;display:block;margin:0 auto;border-radius:8px;overflow:hidden;">
+        <rect width="360" height="240" fill="#e8f0e8"/>
+        <line x1="120" y1="0" x2="120" y2="240" stroke="#fff" stroke-width="2"/>
+        <line x1="240" y1="0" x2="240" y2="240" stroke="#fff" stroke-width="2"/>
+        <line x1="0" y1="80"  x2="360" y2="80"  stroke="#fff" stroke-width="2"/>
+        <line x1="0" y1="160" x2="360" y2="160" stroke="#fff" stroke-width="2"/>
+        <circle cx="120" cy="80"  r="8" fill="#e69500"/>
+        <circle cx="240" cy="80"  r="8" fill="#e69500"/>
+        <circle cx="120" cy="160" r="8" fill="#e69500"/>
+        <circle cx="240" cy="160" r="8" fill="#e69500"/>
+        <ellipse cx="232" cy="114" rx="28" ry="22" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="4"/>
+        <text x="232" y="118" text-anchor="middle" fill="#888" font-size="10" font-family="Noto Sans JP">顔</text>
+        <text x="180" y="225" text-anchor="middle" fill="#aaa" font-size="10" font-family="Noto Sans JP">3×3グリッド表示イメージ</text>
+      </svg>
+    </div>
+    <div class="point"><div class="point-label">💡 構図のポイント</div><ul><li>目は必ず交点(黄色のポイント)の近くに配置しましょう</li><li>わんちゃんの進行方向に「空間」を作ると動きが伝わりやすくなります</li><li>フルサイズ＋単焦点なら背景圧縮＋三分割法で作品感のある写真に</li></ul></div>
+
+    <!-- ヒストグラムセクション -->
+    <h3 style="font-size:1.15rem; font-weight:700; margin:40px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--text);">📊 ヒストグラム ── 写真の明るさを「グラフ」で確認</h3>
+
+    <div class="concept">
+      <div class="concept-label">📖 ヒストグラムとは？</div>
+      <div class="concept-title">写真の明るさを可視化するグラフ</div>
+      <div class="concept-desc">液晶の見た目だけでは分からない「正確な明るさ」をグラフで確認できる機能です。屋外の明るい場所や暗い場所で「液晶で見ると明るいけど実は暗かった」という失敗を防げます。<strong>横軸 = 暗い ← → 明るい</strong>、<strong>縦軸 = そのトーンのピクセル数(山の高さ)</strong>で表示されます。</div>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-btn">DISP ボタン(コントロールホイール上)</span><div class="step-title">DISP ボタンで表示切替</div><div class="step-desc">コントロールホイールの <strong>上ボタン(DISP)</strong> を何度か押すと、画面表示が切り替わります。<strong>「ヒストグラム」表示</strong>に切り替えてください。</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-menu">MENU → セットアップ → 表示オプション → DISP(画面表示)設定</span><div class="step-title">DISP切替で表示する内容を選ぶ</div><div class="step-desc">DISPボタンを押した時に表示される画面パターンをカスタマイズできます。「ヒストグラム」のチェックを入れておきましょう。</div></div></div>
+    </div>
+
+    <!-- ヒストグラム読み方の図解 -->
+    <div class="grid-diagram">
+      <div class="grid-diagram-title">ヒストグラムの読み方 ── 山の位置で明るさが分かる</div>
+      <svg viewBox="0 0 540 200" width="100%" style="max-width:540px;display:block;margin:0 auto;">
+        <!-- パターン1: 暗い -->
+        <g transform="translate(0,0)">
+          <rect x="10" y="10" width="160" height="120" fill="#f5f5f5" stroke="#ccc"/>
+          <path d="M 20,130 L 30,128 L 40,120 L 50,100 L 60,75 L 70,60 L 80,68 L 90,90 L 100,108 L 110,120 L 120,126 L 130,128 L 140,129 L 150,129 L 160,130 Z" fill="#555" opacity="0.8"/>
+          <line x1="10" y1="130" x2="170" y2="130" stroke="#888" stroke-width="1"/>
+          <text x="90" y="155" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="bold" font-family="Noto Sans JP">山が左に偏る</text>
+          <text x="90" y="172" text-anchor="middle" fill="#e69500" font-size="10" font-family="Noto Sans JP">⚠ 暗い・黒つぶれ注意</text>
+          <text x="90" y="188" text-anchor="middle" fill="#666" font-size="9" font-family="Noto Sans JP">露出補正＋に</text>
+        </g>
+        <!-- パターン2: 適正 -->
+        <g transform="translate(180,0)">
+          <rect x="10" y="10" width="160" height="120" fill="#f5f5f5" stroke="#ccc"/>
+          <path d="M 20,130 L 30,125 L 40,115 L 50,95 L 60,75 L 70,55 L 80,45 L 90,50 L 100,65 L 110,85 L 120,105 L 130,118 L 140,125 L 150,128 L 160,130 Z" fill="#15803d" opacity="0.7"/>
+          <line x1="10" y1="130" x2="170" y2="130" stroke="#888" stroke-width="1"/>
+          <text x="90" y="155" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="bold" font-family="Noto Sans JP">山が中央〜やや右</text>
+          <text x="90" y="172" text-anchor="middle" fill="#15803d" font-size="10" font-family="Noto Sans JP">✓ 適正露出</text>
+          <text x="90" y="188" text-anchor="middle" fill="#666" font-size="9" font-family="Noto Sans JP">理想的なバランス</text>
+        </g>
+        <!-- パターン3: 明るい -->
+        <g transform="translate(360,0)">
+          <rect x="10" y="10" width="160" height="120" fill="#f5f5f5" stroke="#ccc"/>
+          <path d="M 20,130 L 30,129 L 40,128 L 50,126 L 60,120 L 70,110 L 80,90 L 90,70 L 100,55 L 110,65 L 120,85 L 130,105 L 140,118 L 150,125 L 160,130 Z" fill="#888" opacity="0.6"/>
+          <line x1="10" y1="130" x2="170" y2="130" stroke="#888" stroke-width="1"/>
+          <text x="90" y="155" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="bold" font-family="Noto Sans JP">山が右に偏る</text>
+          <text x="90" y="172" text-anchor="middle" fill="#e69500" font-size="10" font-family="Noto Sans JP">⚠ 白飛び注意</text>
+          <text x="90" y="188" text-anchor="middle" fill="#666" font-size="9" font-family="Noto Sans JP">露出補正ーに</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="point">
+      <div class="point-label">📚 基本編：読み方のキホン</div>
+      <ul>
+        <li><strong>横軸の見方</strong>：左端=真っ黒、右端=真っ白、中央=中間グレー</li>
+        <li><strong>山が右端で途切れている</strong> → <strong>白飛び</strong>(明るい部分のディテール消失)</li>
+        <li><strong>山が左端で途切れている</strong> → <strong>黒つぶれ</strong>(暗い部分のディテール消失)</li>
+        <li><strong>理想の形</strong>：山が左右に偏らず、なだらかに分布している状態</li>
+        <li>液晶の見た目より <strong>ヒストグラムを信じる</strong> のが鉄則です</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <div class="concept-label">🎯 実践編：ペット撮影でのヒストグラム活用</div>
+      <div class="concept-title">わんちゃんの毛色で読み方を変える</div>
+      <div class="concept-desc">わんちゃんの体色によって、理想のヒストグラムは変わります。同じ「適正露出」でも、白い子と黒い子では山の位置が違って当然なのです。</div>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">白</div><div class="step-body"><span class="step-tag tag-tip">白い毛色のわんちゃん</span><div class="step-title">山はやや右寄りが正解</div><div class="step-desc">マルチーズ・サモエド・白柴など <strong>白い毛色の子</strong> を撮るときは、山が右寄りになるのが自然。<strong>右端で切れない範囲で、できるだけ右に寄せる</strong>のがコツ。これを「ETTR(Expose To The Right)」と呼びます。白い毛の質感やフワフワ感がしっかり残せます。</div></div></div>
+      <div class="step"><div class="step-num">黒</div><div class="step-body"><span class="step-tag tag-tip">黒い毛色のわんちゃん</span><div class="step-title">山は左寄りでも問題なし</div><div class="step-desc">黒柴・黒ラブ・トイプーの黒など <strong>黒い毛色の子</strong> は、山が左寄りになるのが自然。<strong>ただし左端で切れると毛のディテールが消える</strong>ので、左端ギリギリで止まるくらいの露出に。露出補正ーで山が左端まで行かないよう調整します。</div></div></div>
+      <div class="step"><div class="step-num">混</div><div class="step-body"><span class="step-tag tag-btn">白＋黒の混色 / 茶色系</span><div class="step-title">山が左右に分かれる(山が2つできる)</div><div class="step-desc">パピヨン・チワワ(白×茶)など色が混ざった子は、ヒストグラムに <strong>2つの山</strong> ができることがあります。<strong>両方の山が端で切れない範囲</strong>で露出を決めましょう。茶色系は中央付近に山が来やすいので、最も適正露出を判断しやすい色です。</div></div></div>
+    </div>
+
+    <div class="point">
+      <div class="point-label">💡 ヒストグラム実践のコツ</div>
+      <ul>
+        <li><strong>逆光シーン</strong>：背景の白飛びを許容して、わんちゃんの顔の露出を優先</li>
+        <li><strong>雪・砂浜・白い壁</strong>：山が右に寄りすぎないよう露出補正−0.7〜−1.0</li>
+        <li><strong>森の中・夜景</strong>：山が左に寄りすぎないよう露出補正+0.3〜+0.7</li>
+        <li>α7 IV は <strong>RGBヒストグラム表示</strong> も可能(MENU→セットアップ→表示オプション)。赤・緑・青の各色チャンネルで飽和(白飛び)していないか確認できます</li>
+        <li><strong>ゼブラ表示</strong>(白飛び部分が縞模様で点滅)も併用すると、撮影中に白飛びをリアルタイムで把握できます</li>
+        <li>単焦点開放撮影では露出が変動しやすいので、ヒストグラム＋ゼブラのダブル監視がおすすめ</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- THUMB AF -->
+  <div class="panel" id="panel-thumbaf">
+    <div class="page-header">
+      <div class="page-title">親指AF設定</div>
+      <div class="page-sub">AF-ON ボタンをカスタムしてプロの撮り方に近づこう</div>
+      <div class="difficulty"><span class="stars">★★★</span><span>上級</span></div>
+    </div>
+    <div class="concept">
+      <div class="concept-label">📖 親指AFとは？</div>
+      <div class="concept-title">シャッターとAFを「分離」する撮り方</div>
+      <div class="concept-desc">通常はシャッター半押しでAFが動きますが、親指AFでは <strong>AF-ON ボタンだけでAFを動かし</strong>、シャッターはAFなしで切れるようにします。動く被写体と止まった被写体を素早く切り替えられる、プロも愛用する撮り方です。</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-menu">MENU → セットアップ → 操作カスタマイズ → カスタムキー/ダイヤル設定</span><div class="step-title">MENU からカスタムキー設定を開く</div><div class="step-desc"><strong>MENU → 「セットアップ」タブ → 「操作カスタマイズ」 → 「カスタムキー／ダイヤル設定」</strong> を選択。</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-btn">AF-ON ボタンの割り当てを確認</span><div class="step-title">AF-ON ボタンは「AFオン」のまま</div><div class="step-desc">一覧から <strong>「AF-ON ボタン」</strong> を確認します。初期設定の <strong>「AFオン」</strong> のままでOK。変更は不要です。</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-menu">MENU → フォーカス → AF/MF → シャッター半押しAF</span><div class="step-title">シャッター半押しのAFを「切」にする</div><div class="step-desc"><strong>「フォーカス」タブ → 「AF/MF」 → 「シャッター半押しAF」</strong> を <strong>「切」</strong> に変更します。これでシャッターはAFなしで切れるようになります。</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><span class="step-tag tag-btn">右親指で AF-ON を押しながら撮影</span><div class="step-title">実際の使い方</div><div class="step-desc">右手親指で <strong>AF-ON ボタンを押している間だけAFが動きます</strong>。ピントが合ったらボタンを離してシャッターを切ります。ピントを固定したまま構図を変えられるのが最大の利点です。</div></div></div>
+    </div>
+    <div class="compare">
+      <div class="compare-head">通常AF と 親指AF の違い</div>
+      <div class="compare-body">
+        <div class="compare-col"><div class="compare-col-title">通常AF(初期設定)</div>シャッター半押し → AF動く<br>シャッター全押し → 撮影<br><br><span class="good">✔ 操作がシンプル</span><br><span class="meh">△ ピント固定が難しい</span></div>
+        <div class="compare-col"><div class="compare-col-title" style="color:var(--blue);">親指AF(カスタム後)</div>AF-ON を押す → AF動く<br>シャッター → AFなしで撮影<br><br><span class="good">✔ ピント固定が自在</span><br><span class="good">✔ 動体・静止体の切替が速い</span></div>
+      </div>
+    </div>
+    <div class="point"><div class="point-label">💡 親指AF のポイント</div><ul><li>単焦点撮影で「目に合わせた後、構図だけ微調整」したい時に絶大な効果</li><li>「ピントが外れやすい」と感じている方に特に効果的</li><li>α7 IV は AF-ON に「押す間トラッキング+AFオン」が初期割り当て済み。押すだけで追従AFが起動します</li><li>元に戻したい場合は「シャッター半押しAF」を「入」に戻すだけです</li></ul></div>
+  </div>
+
+  <!-- COPYRIGHT FOOTER -->
+  <div class="copyright">
+    <div class="copyright-brand">© 2026 wan.shutter　- wan.methods -</div>
+    本資料の無断転用・複製・再配布を禁じます。<br>
+    <span class="copyright-warning">受講者本人のみご使用ください。</span>
+  </div>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if (b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+const hs = {
+  menu:  { name:'① MENU ボタン', desc:'グリッド線・フォーカスエリア・被写体認識など、詳細な設定変更に使います。α7 IVでは液晶モニターの左上、C3ボタンの右隣に配置されています。', tip:'メニューは新世代タブ構造で「撮影」「露出/色」「フォーカス」「再生」「ネットワーク」「セットアップ」のタブ構成。マイメニューに登録すると効率的です。' },
+  mode:  { name:'② モードダイヤル(上面)', desc:'撮影モード(P/A/S/M/AUTO/1/2/3)を選ぶダイヤル。カメラ上面の中央寄りに配置されています。', tip:'加藤さんはMモード使用ですね。単焦点+Mモードの組み合わせは、ボケと露出を完全にコントロールできる最強構成です。' },
+  exp:   { name:'③ 露出補正ダイヤル(上面)', desc:'写真の明るさを-3〜+3EVの範囲で調整できる物理ダイヤル。α7 IVでは数字刻印のないカスタマイズ可能タイプで、他の機能を割り当てることも可能です。', tip:'Mモードでも ISO Auto との組み合わせで露出補正が効きます。逆光時は+0.7、雪・砂浜では-0.7が目安。' },
+  afon:  { name:'④ AF-ON ボタン', desc:'このボタンだけでオートフォーカスを動かす「親指AF」に使えます。グリップを握りながら、親指で自然に押せる位置に配置されています。', tip:'α7 IVではAF-ONに「押す間トラッキング+AFオン」が初期設定で割り当てられているので、押すだけで瞬時に追従AFが起動します。' },
+  js:    { name:'⑤ マルチセレクター(ジョイスティック)', desc:'フォーカスポイントの位置を上下左右斜めに素早く動かせるレバー。α7 IVの大きな特徴の一つです。', tip:'指先で軽く動かすだけでピント位置を移動可能。85mm/135mm単焦点で目に正確にピントを置く時にとても便利です。' },
+  fn:    { name:'⑥ Fn(ファンクション)ボタン', desc:'よく使う12の設定をすばやく変更できるファンクションメニューを開きます。ISO・フォーカスモード・フォーカスエリア・ホワイトバランスなど、撮影現場で必要な操作はここで完結します。', tip:'Fnメニューは MENU → セットアップ → 操作カスタマイズ → Fnメニュー設定で並びを変更可能。自分専用の使いやすい配置にカスタマイズしましょう。' },
+  wheel: { name:'⑦ コントロールホイール', desc:'円形ダイヤル。外周のホイールを回して数値変更、上下左右ボタンに各機能(DISP上・ISO右・C4下・ドライブモード左)が割り当てられています。中央はSETボタン。', tip:'前ダイヤル＋後ダイヤル＋コントロールホイールの3ダイヤル構成で、Mモードでの素早い設定変更が可能です。' }
+};
+function showHotspot(key) {
+  const d = hs[key];
+  document.getElementById('info-name').textContent = d.name;
+  document.getElementById('info-desc').textContent = d.desc;
+  const tip = document.getElementById('info-tip');
+  tip.textContent = d.tip;
+  tip.style.display = 'block';
+  document.querySelectorAll('.hotspot').forEach(h => h.classList.remove('active'));
+  document.getElementById('hs-' + key).classList.add('active');
+}
+</script>
+
+</body>
+</html>

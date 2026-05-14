@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iPhone 17 Pro 操作ガイド｜カメラ講座</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f5f5f5;
+    --surface2: #ececec;
+    --border: #ddd;
+    --text: #1a1a1a;
+    --text-sub: #555;
+    --text-light: #888;
+    --yellow: #e69500;
+    --blue: #1d4ed8;
+    --green: #15803d;
+    --apple-blue: #007aff;
+    --apple-blue-light: #eaf3ff;
+    --tag-menu-bg: #dbeafe; --tag-menu-fg: #1e40af;
+    --tag-btn-bg:  #fef3c7; --tag-btn-fg:  #92400e;
+    --tag-tip-bg:  #dcfce7; --tag-tip-fg:  #166534;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  header {
+    background:#fff; border-bottom:2px solid var(--border);
+    padding:16px 24px; position:sticky; top:0; z-index:100;
+    display:flex; align-items:center; gap:14px;
+  }
+  .brand { font-family:'DM Mono',monospace; font-size:1.1rem; font-weight:500; letter-spacing:2px; }
+  .model { font-size:0.8rem; color:var(--text-light); margin-top:1px; }
+  .header-tag {
+    margin-left:auto; background:var(--surface2); color:var(--text-sub);
+    font-size:0.78rem; padding:4px 12px; border-radius:20px; font-weight:500; white-space:nowrap;
+  }
+
+  .tabs { display:flex; background:#fff; border-bottom:1px solid var(--border); overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab-btn {
+    padding:14px 20px; background:none; border:none; color:var(--text-light);
+    font-family:'Noto Sans JP',sans-serif; font-size:0.9rem; font-weight:500;
+    cursor:pointer; white-space:nowrap; border-bottom:3px solid transparent;
+    transition:color .15s, border-color .15s; line-height:1;
+  }
+  .tab-btn:hover { color:var(--text); }
+  .tab-btn.active { color:var(--text); border-bottom-color:var(--text); }
+
+  .content { max-width:760px; margin:0 auto; padding:32px 20px 80px; }
+  .panel { display:none; }
+  .panel.active { display:block; }
+
+  .page-header { margin-bottom:28px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .page-title { font-size:1.6rem; font-weight:700; margin-bottom:6px; }
+  .page-sub { font-size:1rem; color:var(--text-sub); }
+  .difficulty {
+    display:inline-flex; align-items:center; gap:8px; margin-top:12px;
+    font-size:0.85rem; color:var(--text-sub);
+    background:var(--surface); padding:5px 12px; border-radius:20px;
+  }
+  .stars { color:var(--yellow); font-size:1rem; letter-spacing:2px; }
+  .stars .e { color:#ddd; }
+
+  .steps { display:flex; flex-direction:column; gap:14px; margin-bottom:28px; }
+  .step {
+    background:var(--surface); border-radius:12px;
+    padding:20px 20px 20px 18px; display:flex; gap:16px; align-items:flex-start;
+  }
+  .step-num {
+    font-family:'DM Mono',monospace; font-size:0.85rem; font-weight:500;
+    color:#fff; background:var(--text); min-width:32px; height:28px; padding:0 8px;
+    border-radius:14px; display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; margin-top:3px;
+  }
+  .step-body { flex:1; }
+  .step-tag {
+    display:inline-block; font-size:0.72rem; font-weight:700;
+    padding:3px 10px; border-radius:4px; margin-bottom:6px; letter-spacing:.3px;
+  }
+  .tag-menu { background:var(--tag-menu-bg); color:var(--tag-menu-fg); }
+  .tag-btn  { background:var(--tag-btn-bg);  color:var(--tag-btn-fg); }
+  .tag-tip  { background:var(--tag-tip-bg);  color:var(--tag-tip-fg); }
+  .tag-apple { background:var(--apple-blue-light); color:var(--apple-blue); }
+  .step-title { font-size:1.05rem; font-weight:700; margin-bottom:5px; }
+  .step-desc  { font-size:0.95rem; color:var(--text-sub); line-height:1.8; }
+  .step-desc strong { color:var(--text); font-weight:700; }
+
+  .point { background:#f0f9ff; border:1px solid #bae6fd; border-radius:12px; padding:18px 20px; margin-bottom:24px; }
+  .point-label { font-size:0.85rem; font-weight:700; color:#0369a1; margin-bottom:10px; }
+  .point ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .point li { font-size:0.95rem; color:#0c4a6e; padding-left:20px; position:relative; line-height:1.75; }
+  .point li::before { content:"✔"; position:absolute; left:0; color:#0ea5e9; font-size:0.85rem; }
+
+  .concept { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:18px 20px; margin-bottom:24px; }
+  .concept-label { font-size:0.8rem; font-weight:700; color:#15803d; margin-bottom:6px; }
+  .concept-title { font-size:1.1rem; font-weight:700; margin-bottom:6px; }
+  .concept-desc { font-size:0.95rem; color:var(--text-sub); line-height:1.8; }
+  .concept-desc strong { color:var(--text); font-weight:700; }
+
+  .apple-note {
+    background: var(--apple-blue-light);
+    border: 1px solid #b8d8ff;
+    border-left: 4px solid var(--apple-blue);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 0.92rem;
+    color: #003d80;
+    line-height: 1.75;
+  }
+  .apple-note-label { font-size:0.75rem; font-weight:700; color:var(--apple-blue); margin-bottom:5px; letter-spacing:0.5px; }
+  .apple-note strong { color: #002b5c; font-weight:700; }
+
+  .ov-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-top:10px; }
+  .ov-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; cursor:pointer; transition:background .15s,border-color .15s; }
+  .ov-card:hover { background:var(--surface2); border-color:#bbb; }
+  .ov-icon  { font-size:1.5rem; margin-bottom:8px; }
+  .ov-title { font-size:0.95rem; font-weight:700; margin-bottom:3px; }
+  .ov-stars { font-size:0.72rem; color:var(--yellow); }
+  .ov-stars .e { color:#ddd; }
+  .ov-desc  { font-size:0.78rem; color:var(--text-light); margin-top:4px; line-height:1.5; }
+
+  .copyright {
+    margin-top: 48px;
+    padding: 20px 16px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+  .copyright-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .copyright-warning {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 6px;
+  }
+
+  @media (min-width:640px) {
+    body { font-size:18px; }
+    .page-title { font-size:1.9rem; }
+    .step-title { font-size:1.1rem; }
+    .step-desc, .point li, .concept-desc { font-size:1rem; }
+    .tab-btn { font-size:0.95rem; padding:16px 24px; }
+  }
+  @media (max-width:480px) {
+    .content { padding:22px 14px 70px; }
+    .tab-btn { padding:12px 14px; font-size:0.85rem; }
+    .step { padding:16px 14px; gap:12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">APPLE iPhone 17 Pro</div>
+    <div class="model">カメラ操作ガイド</div>
+  </div>
+  <div class="header-tag">📱 武笠 真奈美 様 専用</div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('overview')">🏠 はじめに</button>
+  <button class="tab-btn" onclick="showTab('basic')">基本操作</button>
+  <button class="tab-btn" onclick="showTab('focus')">ピント・露出</button>
+  <button class="tab-btn" onclick="showTab('portrait')">ポートレート</button>
+  <button class="tab-btn" onclick="showTab('zoom')">ズーム</button>
+  <button class="tab-btn" onclick="showTab('edit')">編集</button>
+</div>
+
+<div class="content">
+
+  <!-- OVERVIEW -->
+  <div class="panel active" id="panel-overview">
+    <div class="page-header">
+      <div class="page-title">iPhone 17 Pro 操作ガイド</div>
+      <div class="page-sub">ピノちゃん・ナノちゃんとの撮影をもっと楽しく🐾</div>
+    </div>
+
+    <div class="apple-note">
+      <div class="apple-note-label">iPhone 17 Pro の魅力</div>
+      iPhone 17 Pro は<strong>テトラプリズム搭載の4倍光学望遠</strong>、<strong>4800万画素のメインカメラ</strong>、<strong>Apple Intelligence</strong>など、最新のカメラ機能を搭載した手のひらの一眼レフ。「カメラがちょっと苦手...」という方でも、タップひとつで美しい写真が撮れます。一眼レフ並みの<strong>背景ボケ</strong>や<strong>望遠</strong>もできるので、わんちゃん撮影にもぴったりです✨
+    </div>
+
+    <div class="concept">
+      <div class="concept-label">🐾 武笠さんへ</div>
+      <div class="concept-title">ピノちゃん・ナノちゃん撮影のための iPhone 活用ガイド</div>
+      <div class="concept-desc">この資料は、<strong>白〜クリーム色の毛色のプードル2頭</strong>を一番かわいく撮るための、iPhone 17 Proの使い方をまとめました。「カメラのことはよくわからない」という方でも、このガイド通りに進めれば、SNS映えする1枚が撮れます🌸<br><br>※もし「やっぱりSonyのカメラでも撮ってみたい!」と思ったら、1回目の講習で気軽にご相談くださいね。</div>
+    </div>
+
+    <div style="font-size:0.8rem;color:var(--text-light);letter-spacing:1px;margin:32px 0 12px;font-family:'DM Mono',monospace;">このガイドで学ぶ操作</div>
+    <div class="ov-grid">
+      <div class="ov-card" onclick="showTab('basic')"><div class="ov-icon">📸</div><div class="ov-title">基本操作</div><div class="ov-stars">★<span class="e">★★</span></div><div class="ov-desc">カメラの開き方・モード</div></div>
+      <div class="ov-card" onclick="showTab('focus')"><div class="ov-icon">🎯</div><div class="ov-title">ピント・露出</div><div class="ov-stars">★<span class="e">★★</span></div><div class="ov-desc">タップでピント・明るさ調整</div></div>
+      <div class="ov-card" onclick="showTab('portrait')"><div class="ov-icon">✨</div><div class="ov-title">ポートレート</div><div class="ov-stars">★★<span class="e">★</span></div><div class="ov-desc">一眼っぽい背景ボケ</div></div>
+      <div class="ov-card" onclick="showTab('zoom')"><div class="ov-icon">🔍</div><div class="ov-title">ズーム</div><div class="ov-stars">★<span class="e">★★</span></div><div class="ov-desc">0.5×〜8倍の使い分け</div></div>
+      <div class="ov-card" onclick="showTab('edit')"><div class="ov-icon">🎨</div><div class="ov-title">編集</div><div class="ov-stars">★★<span class="e">★</span></div><div class="ov-desc">明るさ・色味・トリミング</div></div>
+    </div>
+  </div>
+
+  <!-- BASIC -->
+  <div class="panel" id="panel-basic">
+    <div class="page-header">
+      <div class="page-title">基本操作</div>
+      <div class="page-sub">カメラアプリの開き方と、撮影モードの使い分け</div>
+      <div class="difficulty"><span class="stars">★<span class="e">★★</span></span><span>初級</span></div>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-apple">ロック画面 → カメラ</span><div class="step-title">カメラアプリを素早く開く</div><div class="step-desc">3つの方法でカメラを起動できます。<br><br><strong>① ロック画面からスワイプ</strong>：画面右下の📷アイコンを長押し、または画面を左にスワイプ<br><strong>② アクションボタン</strong>：本体側面のアクションボタンに「カメラ起動」を割り当て可能<br><strong>③ カメラコントロールボタン</strong>：iPhone 17 Proの新機能、右側面のカメラ専用ボタンを軽く押す<br><br>とっさのシャッターチャンスを逃さないよう、開き方を1つ覚えておきましょう🐾</div></div></div>
+
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-btn">画面下のモード切替</span><div class="step-title">撮影モードを選ぶ</div><div class="step-desc">カメラを開いたら、画面下に並んでいる文字を左右にスワイプしてモードを切り替えます。<br><br>・<strong>写真</strong>:通常の静止画(基本はこれ)<br>・<strong>ポートレート</strong>:背景ボケのある一眼っぽい写真<br>・<strong>シネマティック</strong>:動画でボケ表現<br>・<strong>ビデオ</strong>:通常の動画<br>・<strong>スロー</strong>:スローモーション動画<br>・<strong>タイムラプス</strong>:早送り動画<br><br>普段使いは「写真」、わんちゃんアップは「ポートレート」がおすすめです✨</div></div></div>
+
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-btn">シャッターボタン(画面下中央)</span><div class="step-title">シャッターの押し方3パターン</div><div class="step-desc"><strong>① タップ</strong>:1枚撮影<br><strong>② 長押し</strong>:動画録画(離すと終了)<br><strong>③ 横にスワイプして固定</strong>:動画撮影を継続<br><br>また、<strong>ボリュームボタン(本体左側)</strong>もシャッターとして使えます。両手で構えやすく、手ブレも減らせるので、わんちゃん撮影では便利です。</div></div></div>
+
+      <div class="step"><div class="step-num">4</div><div class="step-body"><span class="step-tag tag-apple">画面上部のアイコン</span><div class="step-title">よく使う設定アイコン</div><div class="step-desc">画面上部には、撮影に役立つアイコンが並んでいます。<br><br>・<strong>フラッシュ(⚡)</strong>:オン/オフ/自動<br>・<strong>ナイトモード(🌙)</strong>:暗所撮影で自動表示<br>・<strong>Live Photos</strong>:前後3秒も記録<br>・<strong>写真スタイル</strong>:色味のプリセット<br>・<strong>タイマー</strong>:3秒/10秒<br>・<strong>RAW</strong>:プロ向け編集用形式(オフ推奨)<br><br>右上の<strong>「∧」</strong>マークをタップすると、これらの設定が画面下に展開されます。</div></div></div>
+    </div>
+
+    <div class="point">
+      <div class="point-label">💡 撮影前のチェックリスト</div>
+      <ul>
+        <li><strong>レンズを拭く</strong>:指紋や汚れで写真がぼやけることが多い</li>
+        <li><strong>Live Photos ON</strong>:ベストな瞬間を後から選べる</li>
+        <li><strong>グリッド表示 ON</strong>:構図が決めやすい(設定→カメラ→グリッド)</li>
+        <li><strong>音量で撮影に慣れる</strong>:両手で構えるとブレにくい</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FOCUS -->
+  <div class="panel" id="panel-focus">
+    <div class="page-header">
+      <div class="page-title">ピント・露出</div>
+      <div class="page-sub">タップでピント／長押しでロック／明るさ調整</div>
+      <div class="difficulty"><span class="stars">★<span class="e">★★</span></span><span>初級</span></div>
+    </div>
+
+    <div class="apple-note">
+      <div class="apple-note-label">iPhone のピントと明るさの仕組み</div>
+      iPhone のカメラは、画面で<strong>タップした場所</strong>にピントと明るさを合わせます。指1本でコントロールできるので、慣れると一眼レフより素早く撮れることも✨ 白〜クリーム色のピノちゃん・ナノちゃんを撮るときは、少し明るめに撮るのがコツです。
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-apple">画面をタップ</span><div class="step-title">ピントを合わせる</div><div class="step-desc">撮りたいわんちゃんの<strong>目をタップ</strong>すると、黄色い四角(フォーカス枠)が表示されてピントが合います。<br><br>iPhoneは<strong>動物検出AI</strong>を搭載しているので、わんちゃんを認識すると自動で顔にピントが合うことも。複数頭いる時は、<strong>主役にしたい子の目をタップ</strong>することで指定できます🐾</div></div></div>
+
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-btn">画面を長押し(タップしたまま2秒)</span><div class="step-title">AE/AFロックでピントを固定</div><div class="step-desc">画面を<strong>長押し</strong>(2秒くらい)すると、画面上に <strong>「AE/AFロック」</strong> という黄色いバナーが表示されます。これでピントと明るさが<strong>固定</strong>されます。<br><br>たとえば、ピノちゃんに合わせたピントを保ったまま、ちょっと構図を変えたい時など、一眼レフでいう「親指AF」と同じことができます。<br><br>解除するには、もう一度画面をタップ。</div></div></div>
+
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-apple">タップ後、☀マークを上下にスワイプ</span><div class="step-title">明るさを調整する(露出補正)</div><div class="step-desc">画面をタップすると、ピント枠の横に <strong>☀(太陽)マーク</strong> が表示されます。これを<strong>上下にスワイプ</strong>すると、明るさを微調整できます。<br><br>・<strong>上にスワイプ</strong> → 明るく(白いプードルちゃんのフワフワ感を活かす時に◎)<br>・<strong>下にスワイプ</strong> → 暗く(背景が明るすぎる時、雰囲気を出したい時に)<br><br>白〜クリーム色のピノちゃん・ナノちゃんは、自動だと少し暗めに写る傾向があるので、<strong>少し上にスワイプして明るく</strong>するのがおすすめです✨</div></div></div>
+
+      <div class="step"><div class="step-num">4</div><div class="step-body"><span class="step-tag tag-tip">バーストモード</span><div class="step-title">動く瞬間は「バースト(連写)」で逃さない</div><div class="step-desc">動き回るピノちゃん・ナノちゃんには <strong>バーストモード</strong> がおすすめ。<br><br>方法は2つ:<br><strong>① シャッターボタンを左にスワイプして長押し</strong><br><strong>② ボリュームの「上」ボタンを長押し</strong><br><br>離すまで連写されるので、たくさん撮った中から決定的瞬間を選べます。<br><br>※「設定→カメラ→音量を上げるボタンをバーストに使用」をONにしておきましょう。</div></div></div>
+    </div>
+
+    <div class="point">
+      <div class="point-label">💡 ピノちゃん・ナノちゃんを撮るコツ</div>
+      <ul>
+        <li><strong>目をタップしてピント</strong>を確実に</li>
+        <li>白〜クリーム色は<strong>露出を少し上げる</strong>(☀マークを上にスワイプ)</li>
+        <li>2頭一緒に撮る時は、<strong>真ん中の子の目</strong>にタップしてから構図を整える</li>
+        <li>動く瞬間は<strong>バーストモード</strong>でたくさん撮って選ぶ</li>
+        <li>逆光時は、<strong>顔をタップして露出を上げる</strong>と表情がしっかり見える</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PORTRAIT -->
+  <div class="panel" id="panel-portrait">
+    <div class="page-header">
+      <div class="page-title">ポートレートモード</div>
+      <div class="page-sub">一眼レフのような背景ボケで、ピノちゃん・ナノちゃんを主役に✨</div>
+      <div class="difficulty"><span class="stars">★★<span class="e">★</span></span><span>中級</span></div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-label">📖 ポートレートモードとは？</div>
+      <div class="concept-title">背景をボカして一眼レフっぽい写真に</div>
+      <div class="concept-desc">iPhone のカメラには、人物だけでなく <strong>ペット(犬・猫)</strong> も認識して、自動で背景をボカしてくれる機能があります。これが <strong>ポートレートモード</strong>。一眼レフカメラで「F1.8の単焦点レンズで撮ったような写真」が、タップひとつで撮れます✨</div>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-apple">画面下を左右スワイプ → ポートレート</span><div class="step-title">ポートレートモードに切り替え</div><div class="step-desc">カメラアプリを開いて、画面下の文字を左右にスワイプし、<strong>「ポートレート」</strong> を選択します。<br><br>わんちゃんを画面に入れると、自動で<strong>「自然光」「スタジオ照明」</strong>などの照明エフェクトが表示されます。基本は「自然光」のままでOK。</div></div></div>
+
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-btn">わんちゃんに少し近づく</span><div class="step-title">適切な距離を保つ</div><div class="step-desc">ポートレートモードは <strong>被写体から50cm〜2.5m</strong> の距離で最適に動作します。離れすぎると「もっと近づいてください」と表示されます。<br><br>ピノちゃん・ナノちゃんの<strong>顔のアップ</strong>を撮る時は、しゃがんでわんちゃんの目線まで下がるのがコツ。すごく可愛い1枚になります🐾</div></div></div>
+
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-apple">画面右上の「f」マーク</span><div class="step-title">F値(ボケの強さ)を変える</div><div class="step-desc">撮影前または撮影後に、<strong>画面右上の「f」マーク</strong> をタップすると、ボケの強さ(F値)を <strong>F1.4〜F16</strong> で調整できます。<br><br>・<strong>F1.4〜F2.8</strong>:背景を大きくボカす(主役を際立たせる)<br>・<strong>F4〜F5.6</strong>:自然な背景ボケ<br>・<strong>F8〜F16</strong>:背景もしっかり見せる(集合写真向き)<br><br>すごいのは、<strong>撮影後でもF値を変えられる</strong>こと。後から「もっとボカしたい」と思っても調整可能です✨</div></div></div>
+
+      <div class="step"><div class="step-num">4</div><div class="step-body"><span class="step-tag tag-tip">2頭一緒に撮る時</span><div class="step-title">ピノちゃん・ナノちゃん2頭撮影</div><div class="step-desc">2頭を一緒にポートレートで撮る時のコツ:<br><br><strong>① 2頭が同じくらいの距離</strong>になるよう並ばせる<br><strong>② F値は F4〜F5.6 程度</strong>に(F1.4だと片方がボケてしまう)<br><strong>③ 2頭の真ん中をタップ</strong>してピント<br><strong>④ おやつを持って2頭の顔を上げる</strong>と表情がそろう<br><br>2頭がじゃれている動きのあるシーンでは、ポートレートではなく<strong>通常の「写真」モード+バースト</strong>のほうが失敗しにくいです。</div></div></div>
+    </div>
+
+    <div class="point">
+      <div class="point-label">💡 白〜クリーム色のプードル撮影のコツ</div>
+      <ul>
+        <li>明るい場所では <strong>F2.8〜F4</strong> でフワフワ感を活かす</li>
+        <li>暗めの室内では <strong>F1.4〜F2.0</strong> で表情を際立たせる</li>
+        <li><strong>「自然光」エフェクト</strong>が一番自然で使いやすい</li>
+        <li><strong>背景に色味のあるもの</strong>(花・緑など)を入れると、白い毛色が映える</li>
+        <li>後から編集で<strong>「彩度」を少し下げる</strong>と上品な仕上がりに</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ZOOM -->
+  <div class="panel" id="panel-zoom">
+    <div class="page-header">
+      <div class="page-title">ズーム機能</div>
+      <div class="page-sub">iPhone 17 Pro の4倍光学望遠を使いこなそう</div>
+      <div class="difficulty"><span class="stars">★<span class="e">★★</span></span><span>初級</span></div>
+    </div>
+
+    <div class="apple-note">
+      <div class="apple-note-label">iPhone 17 Pro のズーム機能</div>
+      iPhone 17 Pro には<strong>3つの物理レンズ</strong>(超広角・メイン・望遠)が搭載されており、<strong>テトラプリズム式の4倍光学望遠</strong>でディテールを保ったまま遠くを撮れます。さらに<strong>デジタルズームで最大25倍</strong>まで拡大可能。シーンに合わせて使い分けましょう。
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">0.5×</div><div class="step-body"><span class="step-tag tag-btn">超広角レンズ</span><div class="step-title">0.5倍 ── 広い範囲を写したい時</div><div class="step-desc">広大な景色や、室内で全身を撮りたい時に。<strong>ネモフィラ畑のような広い場所で、お花畑と一緒にピノちゃん・ナノちゃん</strong>を写したい時に活躍します。<br><br>※端の方が少し歪むので、被写体は画面の中央に置くのがコツ。</div></div></div>
+
+      <div class="step"><div class="step-num">1×</div><div class="step-body"><span class="step-tag tag-tip">メインレンズ(基本)</span><div class="step-title">1倍 ── 一番自然で日常向き</div><div class="step-desc">人間の目に近い自然な画角。<strong>普段使いの基本はこれ</strong>。最大4800万画素で撮れる、iPhone 17 Proで最も画質が良いレンズです。<br><br>SNS用の写真は、まず1倍で撮るのがおすすめ。</div></div></div>
+
+      <div class="step"><div class="step-num">2×</div><div class="step-body"><span class="step-tag tag-btn">メインレンズ(クロップ)</span><div class="step-title">2倍 ── 顔のアップに最適</div><div class="step-desc">メインレンズの中央部分を切り出して2倍にしているので、画質はほぼ劣化しません。<br><br><strong>わんちゃんの顔のアップ</strong>を撮るのに最適。少し離れて撮ることで、わんちゃんが警戒しにくく、自然な表情が撮れます。</div></div></div>
+
+      <div class="step"><div class="step-num">4×</div><div class="step-body"><span class="step-tag tag-tip">光学望遠レンズ ⭐</span><div class="step-title">4倍 ── iPhone 17 Pro の真骨頂</div><div class="step-desc"><strong>テトラプリズム搭載の4倍光学望遠レンズ</strong>。離れていても被写体を大きく写せます。<br><br>・<strong>背景がぐっと圧縮</strong>される(一眼の望遠レンズと同じ効果)<br>・<strong>背景ボケ</strong>がきれいに出やすい<br>・遊んでいるピノちゃん・ナノちゃんを<strong>離れて撮る</strong>のに最適<br>・公園など広い場所で大活躍<br><br>4倍は<strong>iPhone Pro系の大きな特徴</strong>なので、ぜひ使ってみてください✨</div></div></div>
+
+      <div class="step"><div class="step-num">〜25×</div><div class="step-body"><span class="step-tag tag-menu">デジタルズーム</span><div class="step-title">8倍〜25倍 ── 緊急時のみ</div><div class="step-desc">4倍以上はデジタル拡大なので、<strong>画質が荒くなります</strong>。「どうしても遠くのものを記録したい」時のみ使いましょう。<br><br>※ピノちゃん・ナノちゃんの作品撮りには、<strong>4倍までを使うのが基本</strong>です。</div></div></div>
+    </div>
+
+    <div class="point">
+      <div class="point-label">💡 ズームの使い分けまとめ</div>
+      <ul>
+        <li><strong>0.5倍</strong>:景色＋わんちゃん(余白構図)</li>
+        <li><strong>1倍</strong>:日常スナップ全般(基本)</li>
+        <li><strong>2倍</strong>:顔のアップ(警戒されにくい)</li>
+        <li><strong>4倍</strong>:遠くで遊ぶ姿、背景圧縮ボケ写真 ⭐</li>
+        <li>ズーム切替は <strong>1×ボタンを長押しでスライダー</strong> が出て、細かく調整可能</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EDIT -->
+  <div class="panel" id="panel-edit">
+    <div class="page-header">
+      <div class="page-title">写真編集</div>
+      <div class="page-sub">撮った後がもっと大事！iPhone標準アプリでプロっぽく仕上げる</div>
+      <div class="difficulty"><span class="stars">★★<span class="e">★</span></span><span>中級</span></div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-label">📖 編集の基本姿勢</div>
+      <div class="concept-title">「やりすぎない」のが上品な仕上がりのコツ</div>
+      <div class="concept-desc">写真編集は、つい <strong>「明るく・鮮やかに」</strong> しがちですが、白〜クリーム色のプードルちゃんは <strong>「ほんのり調整する」</strong> くらいが上品で素敵な仕上がりに。iPhone標準の「写真」アプリだけでも、プロっぽい編集が可能です✨</div>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-apple">写真アプリ → 編集</span><div class="step-title">編集画面の開き方</div><div class="step-desc">写真アプリで編集したい写真を開き、右上の<strong>「編集」</strong>をタップ。下に <strong>「調整」「フィルタ」「切り取り」</strong> の3つのアイコンが表示されます。<br><br>まずは <strong>「調整」</strong> から始めてみましょう。</div></div></div>
+
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-btn">調整アイコン</span><div class="step-title">基本の3つの調整項目</div><div class="step-desc">編集画面下に並ぶスライダーから、まずはこの3つだけ覚えれば十分:<br><br><strong>① 露出</strong>(明るさ全体):白いプードルちゃんなら +5〜+15<br><strong>② 明るさ</strong>(中間の明るさ):ふんわり感を出すなら +5〜+10<br><strong>③ コントラスト</strong>:メリハリ。白プードルは控えめに(−5〜+5)<br><br>慣れてきたら<strong>「彩度(−5〜−10)」</strong>を少し下げると、より上品で柔らかい印象に。</div></div></div>
+
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-tip">トリミング(切り取り)</span><div class="step-title">構図を整える</div><div class="step-desc">右下の <strong>「切り取り」アイコン(四角の枠マーク)</strong> から、写真を切り取って構図を整えます。<br><br>・<strong>縦長</strong>:インスタストーリー向き(9:16)<br>・<strong>正方形</strong>:インスタ投稿向き(1:1)<br>・<strong>横長</strong>:横向きで使う時<br><br>三分割法を意識して、<strong>わんちゃんの目を交点に</strong>配置するとプロっぽい1枚に。</div></div></div>
+
+      <div class="step"><div class="step-num">4</div><div class="step-body"><span class="step-tag tag-apple">クリーンアップ(Apple Intelligence)</span><div class="step-title">余計なものを消す</div><div class="step-desc">iPhone 17 Pro なら <strong>Apple Intelligence の「クリーンアップ」</strong> が使えます。<br><br>写真の中の <strong>余計な人物・電線・ゴミ</strong> などを、指でなぞるだけで消せます。「せっかくのいい写真なのに、後ろに知らない人が写ってた...」みたいな時に大活躍。<br><br>※「設定→Apple Intelligence」がオンになっている必要があります。</div></div></div>
+
+      <div class="step"><div class="step-num">5</div><div class="step-body"><span class="step-tag tag-btn">写真スタイル</span><div class="step-title">色味のトーンを変える</div><div class="step-desc">編集画面で、写真スタイルを後から変更できます。<br><br>・<strong>標準</strong>:そのままの自然な色合い<br>・<strong>暖か</strong>:ノスタルジック・柔らかい印象(白プードルにおすすめ)<br>・<strong>クール</strong>:すっきりした青みのある色合い<br>・<strong>ベージュ</strong>:上品で落ち着いた雰囲気<br>・<strong>セピア</strong>:温かみのある色合い<br><br>白〜クリーム色のピノちゃん・ナノちゃんには、<strong>「暖か」または「ベージュ」</strong>がぴったり✨</div></div></div>
+    </div>
+
+    <div class="point">
+      <div class="point-label">💡 ピノちゃん・ナノちゃん編集のおすすめ設定</div>
+      <ul>
+        <li><strong>露出 +10、明るさ +5、彩度 −5</strong>:基本のふんわり感</li>
+        <li><strong>写真スタイル「暖か」</strong>:優しい雰囲気に</li>
+        <li><strong>シャープネス +5〜+10</strong>:目をクッキリさせると印象UP</li>
+        <li><strong>切り取り → 正方形</strong>:インスタ投稿用</li>
+        <li>編集を終えたら<strong>右下の✓</strong>で保存。やり直したい時は再度編集画面で<strong>「元に戻す」</strong></li>
+        <li>編集後の写真は<strong>元の写真と同じ場所</strong>に保存されます(元データもいつでも復元可能)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- COPYRIGHT FOOTER -->
+  <div class="copyright">
+    <div class="copyright-brand">© 2026 wan.shutter　- wan.methods -</div>
+    本資料の無断転用・複製・再配布を禁じます。<br>
+    <span class="copyright-warning">受講者本人のみご使用ください。</span>
+  </div>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if (b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
