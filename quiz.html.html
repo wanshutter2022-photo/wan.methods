@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>わんメソッド カメラ基礎レッスンテスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #f0fdf4, #d1fae5);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #78350f;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #78350f;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 0.875rem;
+        }
+
+        .progress-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-text {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .progress-subtext {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 0.5rem;
+            background: #e5e7eb;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #10b981, #059669);
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .scenario {
+            color: #78350f;
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .question-text {
+            color: #1f2937;
+            line-height: 1.75;
+            margin-bottom: 2rem;
+        }
+
+        .hint {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-button {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .option-button:hover:not(:disabled) {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        .option-button.selected {
+            border-color: #10b981;
+            background: #d1fae5;
+        }
+
+        .option-button:disabled {
+            cursor: not-allowed;
+        }
+
+        .checkbox {
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 2px solid #d1d5db;
+            border-radius: 0.25rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .option-button.selected .checkbox {
+            background: #10b981;
+            border-color: #10b981;
+        }
+
+        .checkmark {
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .option-text {
+            color: #1f2937;
+            flex-grow: 1;
+            font-size: 1.0625rem;
+        }
+
+        .result-icon {
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+            font-size: 1.25rem;
+        }
+
+        .result-box {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid;
+        }
+
+        .result-box.correct {
+            background: #dcfce7;
+            border-color: #86efac;
+        }
+
+        .result-box.incorrect {
+            background: #fee2e2;
+            border-color: #fca5a5;
+        }
+
+        .result-title {
+            font-weight: bold;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-box.correct .result-title {
+            color: #166534;
+        }
+
+        .result-box.incorrect .result-title {
+            color: #991b1b;
+        }
+
+        .result-explanation {
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #22c55e, #10b981);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: linear-gradient(to right, #16a34a, #059669);
+            transform: scale(1.02);
+        }
+
+        .btn-primary:disabled {
+            background: #d1d5db;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #d1d5db;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #9ca3af;
+        }
+
+        .btn-next {
+            background: linear-gradient(to right, #3b82f6, #06b6d4);
+            color: white;
+        }
+
+        .btn-next:hover {
+            background: linear-gradient(to right, #2563eb, #0891b2);
+            transform: scale(1.02);
+        }
+
+        .btn-finish {
+            background: linear-gradient(to right, #a855f7, #ec4899);
+            color: white;
+        }
+
+        .btn-finish:hover {
+            background: linear-gradient(to right, #9333ea, #db2777);
+            transform: scale(1.02);
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* 完了画面 */
+        .completion-screen {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .completion-title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #78350f;
+            margin-bottom: 1rem;
+        }
+
+        .score-display {
+            background: linear-gradient(to right, #d1fae5, #a7f3d0);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .score-number {
+            font-size: 3.75rem;
+            font-weight: bold;
+            color: #78350f;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-percentage {
+            font-size: 1.5rem;
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .feedback-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #78350f;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-text {
+            color: #92400e;
+            line-height: 1.6;
+        }
+
+        .reset-btn {
+            background: linear-gradient(to right, #10b981, #059669);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: linear-gradient(to right, #059669, #047857);
+            transform: scale(1.02);
+        }
+
+        .completion-footer {
+            color: #666;
+            font-size: 0.875rem;
+            margin-top: 1.5rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <div class="header">
+            <div class="brand">wan.methods<br>カメラ基礎レッスンテスト</div>
+            <div class="subtitle"></div>
+        </div>
+
+        <!-- メイン画面 -->
+        <div id="mainScreen">
+            <!-- 進捗バー -->
+            <div class="progress-card">
+                <div class="progress-header">
+                    <span class="progress-text">問題 <span id="questionNumber">1</span> / 10</span>
+                    <span class="progress-subtext">回答済み：<span id="answeredCount">0</span> 問</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 10%"></div>
+                </div>
+            </div>
+
+            <!-- 問題カード -->
+            <div class="question-card">
+                <div class="scenario" id="scenario"></div>
+                <div class="question-text" id="questionText"></div>
+                <div class="hint" id="hint"></div>
+                <div class="options" id="optionsContainer"></div>
+                <div id="resultContainer"></div>
+                <div class="button-group" id="buttonGroup"></div>
+            </div>
+
+            <!-- フッター -->
+            <div class="footer">
+                <p>各問題の設定値（F値・シャッタースピード・ISO）は、実際の撮影現場でよく遭遇する組み合わせです。『正しい選択肢を選ぶ』ことより、『なぜその調整が必要か』という判断プロセスを大切にしてください。わからない場合は、講座資料を見返しながら考えていただいても構いません🐾</p>
+            </div>
+        </div>
+
+        <!-- 完了画面 -->
+        <div id="completionScreen" class="hidden">
+            <div class="completion-screen">
+                <div class="completion-title">テスト完了！🐾</div>
+                
+                <div class="score-display">
+                    <div class="score-number" id="finalScore">0/10</div>
+                    <div class="score-percentage">正解率：<span id="finalPercentage">0</span>%</div>
+                </div>
+
+                <div class="feedback-box" id="feedbackBox"></div>
+
+                <button class="reset-btn" onclick="resetTest()">もう一度挑戦する</button>
+
+                <div class="completion-footer">
+                    <p>ご質問や復習したい点は、次回の対面レッスンでお答えします📸</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                scenario: "【室内・薄暗いリビング】",
+                question: "薄暗いリビングで遊ぶうちの子を撮影。現在の設定は「F4・シャッタースピード 1/125秒・ISO100」ですが、写真が暗くて、背景のボケも足りません。改善策として適切なものを2つお選びください。",
+                options: [
+                    { label: "シャッタースピードをさらに上げる", correct: false },
+                    { label: "F値を下げる（例：F4 → F2.8）", correct: true },
+                    { label: "ピントを手動に切り替える", correct: false },
+                    { label: "ISO感度を上げる（例：ISO100 → ISO400〜800）", correct: true },
+                    { label: "レンズ拭きで汚れを取る", correct: false }
+                ],
+                correctCount: 2,
+                explanation: "暗い環境では、F値を下げて光を多く取り込み、ISO感度も上げることが有効です。シャッタースピードを上げると逆に暗くなります。"
+            },
+            {
+                id: 2,
+                scenario: "【室内・お昼寝中のうちの子】",
+                question: "曇りの日の午後、リビングのソファでお昼寝しているうちの子を、背景をふんわりぼかして優しい雰囲気で撮りたいと思います。現在の設定は「F8・シャッタースピード 1/250秒・ISO400」ですが、背景がボケず、写真もやや暗い状態です。理想に近づけるための調整として、適切なものを2つお選びください。",
+                options: [
+                    { label: "シャッタースピードを1/2000秒に上げる", correct: false },
+                    { label: "F値を11にする", correct: false },
+                    { label: "ISO感度を上げる（例：ISO400 → ISO1600）", correct: true },
+                    { label: "ストロボを真正面から焚く", correct: false },
+                    { label: "F値を小さくする（例：F8 → F2.8）", correct: true }
+                ],
+                correctCount: 2,
+                explanation: "背景をぼかすにはF値を小さくする必要があります。同時に光が不足するので、ISO感度を上げて明るさをキープします。"
+            },
+            {
+                id: 3,
+                scenario: "【夕方の公園・歩くうちの子】",
+                question: "夕方の公園で、ゆっくり歩くうちの子を撮影中です。「F2.8・シャッタースピード 1/500秒・ISO800」で撮ったところ、写真は明るさ十分ですが、ノイズ（ざらつき）が気になります。ノイズを抑えながら明るさをキープする方法として、適切なものを2つお選びください。",
+                options: [
+                    { label: "F値を11まで上げる", correct: false },
+                    { label: "下げた分、シャッタースピードを遅くする（例：1/500 → 1/250秒）", correct: true },
+                    { label: "連写モードに切り替える", correct: false },
+                    { label: "ピントをマニュアルにする", correct: false },
+                    { label: "ISO感度を下げる（例：ISO800 → ISO400）", correct: true }
+                ],
+                correctCount: 2,
+                explanation: "被写体がゆっくり歩いているので、シャッタースピードを遅くしても手ブレの心配は少ないです。同時にISO感度を下げてノイズを軽減します。"
+            },
+            {
+                id: 4,
+                scenario: "【室内・暗いお部屋でじっとしている猫】",
+                question: "夜の薄暗い室内で、ベッドの上にじっと座っているねこちゃんを撮影します。三脚はなく手持ちです。設定は「F2.8・シャッタースピード 1/500秒・ISO1600」ですが、写真が暗いです。座っていてあまり動かないことを踏まえ、明るくするためにもっとも有効な調整を2つお選びください。",
+                options: [
+                    { label: "シャッタースピードを1/2000秒に上げる", correct: false },
+                    { label: "ISO感度をさらに上げる（例：ISO1600 → ISO3200）", correct: true },
+                    { label: "F値を上げる（F2.8 → F5.6）", correct: false },
+                    { label: "シャッタースピードを遅くする（例：1/500 → 1/125秒）", correct: true },
+                    { label: "望遠レンズに付け替える", correct: false }
+                ],
+                correctCount: 2,
+                explanation: "被写体が動かないので、シャッタースピードを遅くしても手ブレの心配がありません。加えてISO感度を上げることで、暗い環境での撮影が可能になります。"
+            },
+            {
+                id: 5,
+                scenario: "【晴天の海辺・走るわんちゃん】",
+                question: "真夏の晴れた海辺で、波打ち際を走り回るうちの子を撮影しています。設定は「F2.8・シャッタースピード 1/2000秒・ISO400」ですが、写真が明るすぎて白飛びしてしまいました。白飛びを抑えるために調整する箇所として、適切なものを2つお選びください。",
+                options: [
+                    { label: "F値を上げる（例：F2.8 → F8）", correct: true },
+                    { label: "シャッタースピードを1/250秒に下げる", correct: false },
+                    { label: "ストロボを焚く", correct: false },
+                    { label: "ISO感度を下げる（例：ISO400 → ISO100）", correct: true },
+                    { label: "ピントを背景の海に合わせる", correct: false }
+                ],
+                correctCount: 2,
+                explanation: "白飛びを抑えるには、光の取り込みを減らす必要があります。F値を上げて絞り、ISO感度も下げることで、露出をコントロールします。"
+            },
+            {
+                id: 6,
+                scenario: "【屋内ドッグラン・動き回るわんちゃん】",
+                question: "屋内ドッグランで走り回るうちの子を撮影しています。「F2.8・シャッタースピード 1/1000秒・ISO3200」で撮影したところ、ブレはないものの、ノイズが目立ち、画質がざらついています。画質を改善する方法として、もっとも現実的な対応を2つお選びください。",
+                options: [
+                    { label: "ISOをさらに上げる（ISO6400）", correct: false },
+                    { label: "被写体が止まる瞬間を狙って、シャッタースピードを1/500秒に下げて撮る", correct: true },
+                    { label: "F値をF8にする", correct: false },
+                    { label: "フラッシュを直接当てる", correct: false },
+                    { label: "より明るいレンズ（F1.4〜F1.8）に交換する", correct: true }
+                ],
+                correctCount: 2,
+                explanation: "動いている被写体のノイズを減らすには、シャッタースピードを活かしつつ、より明るいレンズで ISO を下げるのが最も実現的です。"
+            },
+            {
+                id: 7,
+                scenario: "【桜並木の下・歩くうちの子】",
+                question: "桜並木の下を歩くうちの子を、桜の花びらの背景もふんわり活かしながら撮りたいと思います。曇り空で、現在の設定は「F5.6・シャッタースピード 1/1000秒・ISO200」。背景がくっきり写りすぎて、桜の柔らかい雰囲気が出ません。改善策として適切なものを2つお選びください。",
+                options: [
+                    { label: "ISO感度を3200に上げる", correct: false },
+                    { label: "下げた分、シャッタースピードを上げる（例：1/1000 → 1/4000秒）", correct: true },
+                    { label: "望遠レンズではなく広角レンズに変える", correct: false },
+                    { label: "F値を下げる（例：F5.6 → F2.0前後）", correct: true },
+                    { label: "三脚を使ってカメラを固定する", correct: false }
+                ],
+                correctCount: 2,
+                explanation: "背景をふんわりぼかすにはF値を下げて、浅い被写界深度を作ります。同時にシャッタースピードを上げて露出をコントロールします。"
+            },
+            {
+                id: 8,
+                scenario: "【室内・抱っこされているうちの子】",
+                question: "室内で、家族に抱っこされているうちの子の表情を撮影します。家族の顔とうちの子の顔、両方にピントを合わせたいので、F値を「F8」に設定。SSは1/200秒、ISO400ですが、写真が暗くなってしまいました。F値とSSはこのままにして明るさを補う場合、調整する箇所はどこでしょうか？（1つ選択）",
+                options: [
+                    { label: "F値を下げる", correct: false },
+                    { label: "ピントを背景に合わせる", correct: false },
+                    { label: "シャッタースピードを1/2000秒に上げる", correct: false },
+                    { label: "露出補正をマイナスにする", correct: false },
+                    { label: "ISO感度を上げる（例：ISO400 → ISO1600）", correct: true }
+                ],
+                correctCount: 1,
+                explanation: "F値とシャッタースピードは変えられないという制約があるため、ISO感度を上げることが唯一の選択肢です。"
+            },
+            {
+                id: 9,
+                scenario: "【屋外・ジャンプの瞬間】",
+                question: "公園でフリスビーをくわえてジャンプするうちの子の、空中の一瞬を完全に止めて撮影したいと思います。曇り空で、現在の設定は「F4・シャッタースピード 1/500秒・ISO200」。ジャンプの瞬間がブレてしまいます。改善策として適切なものを2つお選びください。",
+                options: [
+                    { label: "F値を11に上げる", correct: false },
+                    { label: "ピントを手動でジャンプの最高地点に固定する", correct: false },
+                    { label: "上げた分の暗さをISO感度を上げて補う（例：ISO200 → ISO800〜1600）", correct: true },
+                    { label: "連写モードはオフにする", correct: false },
+                    { label: "シャッタースピードを1/2000〜1/4000秒に上げる", correct: true }
+                ],
+                correctCount: 2,
+                explanation: "動きを止めるには高速なシャッタースピードが必須です。曇りの空では光が限られるため、ISO感度を上げて露出を補います。"
+            },
+            {
+                id: 10,
+                scenario: "【総合・複数条件のトレードオフ】",
+                question: "雨上がりの夕方、公園のベンチに座っているうちの子を、背景に夕焼けの空を活かしつつ、表情を生き生きと撮りたいと思います。光は弱め、うちの子はじっとしています。手持ち撮影で、現在「F5.6・シャッタースピード 1/1000秒・ISO200」では暗すぎます。もっともバランスの良い調整として適切なものを2つお選びください。",
+                options: [
+                    { label: "望遠レンズに変えて圧縮効果を狙う", correct: false },
+                    { label: "ストロボを焚いて夕焼けを背景に消す", correct: false },
+                    { label: "シャッタースピードを1/200秒前後まで下げる（被写体が動かないため可能）", correct: true },
+                    { label: "ISO感度を6400まで一気に上げる", correct: false },
+                    { label: "F値を2.8前後に下げて、被写体を浮かび上がらせる", correct: true }
+                ],
+                correctCount: 2,
+                explanation: "被写体が静止しているため、シャッタースピードを遅くしても手ブレの心配がありません。加えて、F値を下げることで被写体を強調し、背景の夕焼けも活かすことができます。"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let selectedAnswers = {};
+
+        function initTest() {
+            showQuestion(0);
+        }
+
+        function showQuestion(index) {
+            currentQuestion = index;
+            const question = questions[index];
+            
+            document.getElementById('questionNumber').textContent = index + 1;
+            document.getElementById('answeredCount').textContent = Object.keys(selectedAnswers).length;
+            document.getElementById('progressFill').style.width = ((index + 1) / questions.length * 100) + '%';
+            
+            document.getElementById('scenario').textContent = question.scenario;
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('hint').textContent = `※ ${question.correctCount === 1 ? '1つ' : question.correctCount === 2 ? '2つ' : question.correctCount} の正解があります`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            const currentAnswers = selectedAnswers[index] || [];
+            
+            question.options.forEach((option, optionIndex) => {
+                const button = document.createElement('button');
+                button.className = 'option-button' + (currentAnswers.includes(optionIndex) ? ' selected' : '');
+                button.innerHTML = `
+                    <div class="checkbox">
+                        ${currentAnswers.includes(optionIndex) ? '<span class="checkmark">✓</span>' : ''}
+                    </div>
+                    <span class="option-text">${option.label}</span>
+                `;
+                button.onclick = () => toggleOption(optionIndex);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('resultContainer').innerHTML = '';
+            updateButtons();
+        }
+
+        function toggleOption(optionIndex) {
+            const question = questions[currentQuestion];
+            const currentAnswers = selectedAnswers[currentQuestion] || [];
+            
+            if (currentAnswers.includes(optionIndex)) {
+                selectedAnswers[currentQuestion] = currentAnswers.filter(i => i !== optionIndex);
+            } else {
+                if (currentAnswers.length < question.correctCount) {
+                    selectedAnswers[currentQuestion] = [...currentAnswers, optionIndex];
+                }
+            }
+            
+            showQuestion(currentQuestion);
+        }
+
+        function updateButtons() {
+            const question = questions[currentQuestion];
+            const currentAnswers = selectedAnswers[currentQuestion] || [];
+            const canSubmit = currentAnswers.length === question.correctCount;
+            const buttonGroup = document.getElementById('buttonGroup');
+            
+            if (!document.getElementById('resultContainer').innerHTML) {
+                buttonGroup.innerHTML = `
+                    <button class="btn btn-primary" ${canSubmit ? '' : 'disabled'} onclick="checkAnswer()">答え合わせ</button>
+                `;
+            }
+        }
+
+        function checkAnswer() {
+            const question = questions[currentQuestion];
+            const currentAnswers = selectedAnswers[currentQuestion] || [];
+            const correctAnswersIndices = question.options
+                .map((opt, i) => opt.correct ? i : -1)
+                .filter(i => i !== -1);
+            
+            const isCorrect = currentAnswers.length === question.correctCount &&
+                              currentAnswers.every(ans => correctAnswersIndices.includes(ans)) &&
+                              correctAnswersIndices.every(ans => currentAnswers.includes(ans));
+            
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = `
+                <div class="result-box ${isCorrect ? 'correct' : 'incorrect'}">
+                    <div class="result-title">${isCorrect ? '✓ 正解です！' : '✗ 不正解です'}</div>
+                    <div class="result-explanation">${question.explanation}</div>
+                </div>
+            `;
+            
+            const buttonGroup = document.getElementById('buttonGroup');
+            if (currentQuestion < questions.length - 1) {
+                buttonGroup.innerHTML = `
+                    ${currentQuestion > 0 ? '<button class="btn btn-secondary" onclick="previousQuestion()">前へ</button>' : ''}
+                    <button class="btn btn-next" onclick="nextQuestion()">次へ</button>
+                `;
+            } else {
+                buttonGroup.innerHTML = '<button class="btn btn-finish" onclick="finishTest()">採点結果を見る</button>';
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                showQuestion(currentQuestion + 1);
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                showQuestion(currentQuestion - 1);
+            }
+        }
+
+        function finishTest() {
+            const score = calculateScore();
+            const percentage = Math.round(score / questions.length * 100);
+            
+            document.getElementById('mainScreen').classList.add('hidden');
+            document.getElementById('completionScreen').classList.remove('hidden');
+            
+            document.getElementById('finalScore').textContent = score + '/10';
+            document.getElementById('finalPercentage').textContent = percentage;
+            
+            const feedbackBox = document.getElementById('feedbackBox');
+            let feedback = '';
+            
+            if (percentage >= 80) {
+                feedback = `
+                    <div class="feedback-title">🎉 素晴らしい成績です！</div>
+                    <div class="feedback-text">カメラの基礎知識をしっかり身につけています。実践撮影で自信を持って設定できるようになりましたね！</div>
+                `;
+            } else if (percentage >= 60) {
+                feedback = `
+                    <div class="feedback-title">👍 よく理解できていますね！</div>
+                    <div class="feedback-text">基本的な理解はできていますが、特定の場面での判断に少し迷うかもしれません。対面レッスンで詳しく解説します。</div>
+                `;
+            } else {
+                feedback = `
+                    <div class="feedback-title">💡 もう一度復習してみましょう。</div>
+                    <div class="feedback-text">難しく感じた部分があれば、対面レッスンで遠慮なくお質問ください。一緒に復習しましょう。</div>
+                `;
+            }
+            
+            feedbackBox.innerHTML = feedback;
+        }
+
+        function resetTest() {
+            currentQuestion = 0;
+            selectedAnswers = {};
+            document.getElementById('mainScreen').classList.remove('hidden');
+            document.getElementById('completionScreen').classList.add('hidden');
+            showQuestion(0);
+        }
+
+        function calculateScore() {
+            let correct = 0;
+            questions.forEach((q, index) => {
+                const userAnswers = selectedAnswers[index] || [];
+                const correctAnswers = q.options
+                    .map((opt, i) => opt.correct ? i : -1)
+                    .filter(i => i !== -1);
+                
+                const isCorrect = userAnswers.length === correctAnswers.length &&
+                                 userAnswers.every(ans => correctAnswers.includes(ans));
+                
+                if (isCorrect) correct++;
+            });
+            return correct;
+        }
+
+        // 初期化
+        initTest();
+    </script>
+</body>
+</html>
