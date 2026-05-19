@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canon EOS R50 操作ガイド｜カメラ講座</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f5f5f5;
+    --surface2: #ececec;
+    --border: #ddd;
+    --text: #1a1a1a;
+    --text-sub: #555;
+    --text-light: #888;
+    --red: #c0392b;
+    --blue: #1d4ed8;
+    --green: #15803d;
+    --tag-menu-bg: #fde8e8; --tag-menu-fg: #9b1c1c;
+    --tag-btn-bg:  #fef3c7; --tag-btn-fg:  #92400e;
+    --tag-tip-bg:  #dcfce7; --tag-tip-fg:  #166534;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans JP',sans-serif; font-size:17px; line-height:1.75; -webkit-text-size-adjust:100%; }
+
+  header { background:#fff; border-bottom:2px solid var(--border); padding:16px 24px; position:sticky; top:0; z-index:100; display:flex; align-items:center; gap:14px; }
+  .brand { font-family:'DM Mono',monospace; font-size:1.1rem; font-weight:500; letter-spacing:2px; }
+  .model { font-size:0.8rem; color:var(--text-light); margin-top:1px; }
+  .header-tag { margin-left:auto; background:#fde8e8; color:#9b1c1c; font-size:0.78rem; padding:4px 12px; border-radius:20px; font-weight:500; white-space:nowrap; }
+
+  .tabs { display:flex; background:#fff; border-bottom:1px solid var(--border); overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab-btn { padding:14px 18px; background:none; border:none; color:var(--text-light); font-family:'Noto Sans JP',sans-serif; font-size:0.88rem; font-weight:500; cursor:pointer; white-space:nowrap; border-bottom:3px solid transparent; transition:color .15s,border-color .15s; line-height:1; }
+  .tab-btn:hover { color:var(--text); }
+  .tab-btn.active { color:var(--red); border-bottom-color:var(--red); }
+
+  .content { max-width:760px; margin:0 auto; padding:32px 20px 80px; }
+  .panel { display:none; }
+  .panel.active { display:block; }
+
+  .page-header { margin-bottom:28px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .page-title { font-size:1.6rem; font-weight:700; margin-bottom:6px; }
+  .page-sub { font-size:1rem; color:var(--text-sub); }
+  .difficulty { display:inline-flex; align-items:center; gap:8px; margin-top:12px; font-size:0.85rem; color:var(--text-sub); background:var(--surface); padding:5px 12px; border-radius:20px; }
+  .stars { color:#e69500; font-size:1rem; letter-spacing:2px; }
+  .stars .e { color:#ddd; }
+
+  .steps { display:flex; flex-direction:column; gap:14px; margin-bottom:28px; }
+  .step { background:var(--surface); border-radius:12px; padding:20px 20px 20px 18px; display:flex; gap:16px; align-items:flex-start; }
+  .step-num { font-family:'DM Mono',monospace; font-size:0.85rem; font-weight:500; color:#fff; background:var(--text); min-width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:3px; }
+  .step-body { flex:1; }
+  .step-tag { display:inline-block; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:4px; margin-bottom:6px; letter-spacing:.3px; }
+  .tag-menu { background:var(--tag-menu-bg); color:var(--tag-menu-fg); }
+  .tag-btn  { background:var(--tag-btn-bg);  color:var(--tag-btn-fg); }
+  .tag-tip  { background:var(--tag-tip-bg);  color:var(--tag-tip-fg); }
+  .step-title { font-size:1.05rem; font-weight:700; margin-bottom:5px; }
+  .step-desc  { font-size:0.95rem; color:var(--text-sub); line-height:1.8; }
+  .step-desc strong { color:var(--text); font-weight:700; }
+
+  .point { background:#f0f9ff; border:1px solid #bae6fd; border-radius:12px; padding:18px 20px; margin-bottom:24px; }
+  .point-label { font-size:0.85rem; font-weight:700; color:#0369a1; margin-bottom:10px; }
+  .point ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .point li { font-size:0.95rem; color:#0c4a6e; padding-left:20px; position:relative; line-height:1.75; }
+  .point li::before { content:"✔"; position:absolute; left:0; color:#0ea5e9; font-size:0.85rem; }
+
+  .concept { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:18px 20px; margin-bottom:24px; }
+  .concept-label { font-size:0.8rem; font-weight:700; color:#15803d; margin-bottom:6px; }
+  .concept-title { font-size:1.1rem; font-weight:700; margin-bottom:6px; }
+  .concept-desc { font-size:0.95rem; color:var(--text-sub); line-height:1.8; }
+  .concept-desc strong { color:var(--text); font-weight:700; }
+
+  .welcome { background:linear-gradient(135deg,#fff5f5,#fff); border:1px solid #fca5a5; border-radius:12px; padding:20px; margin-bottom:28px; }
+  .welcome-label { font-size:0.8rem; font-weight:700; color:var(--red); margin-bottom:8px; }
+  .welcome-title { font-size:1.1rem; font-weight:700; margin-bottom:8px; }
+  .welcome-desc { font-size:0.95rem; color:var(--text-sub); line-height:1.8; }
+  .welcome-desc strong { color:var(--text); }
+
+  .compare { border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:24px; }
+  .compare-head { background:var(--surface); padding:12px 18px; font-size:0.85rem; font-weight:700; color:var(--text-sub); border-bottom:1px solid var(--border); }
+  .compare-body { display:grid; grid-template-columns:1fr 1fr; }
+  .compare-col { padding:16px 18px; font-size:0.92rem; color:var(--text-sub); line-height:1.9; }
+  .compare-col:first-child { border-right:1px solid var(--border); }
+  .compare-col-title { font-size:0.85rem; font-weight:700; color:var(--text); margin-bottom:8px; }
+  .good { color:var(--green); font-weight:600; }
+  .meh  { color:var(--text-light); }
+
+  .info-card { background:var(--surface); border-radius:12px; padding:18px 20px; margin-top:16px; min-height:90px; border-left:4px solid var(--red); }
+  .info-card-label { font-size:0.75rem; font-weight:700; color:var(--text-light); letter-spacing:1px; text-transform:uppercase; font-family:'DM Mono',monospace; margin-bottom:6px; }
+  .info-card-name { font-size:1.05rem; font-weight:700; margin-bottom:6px; }
+  .info-card-desc { font-size:0.95rem; color:var(--text-sub); line-height:1.8; }
+  .info-card-tip { display:none; margin-top:12px; font-size:0.9rem; color:#0c4a6e; background:#f0f9ff; border:1px solid #bae6fd; padding:12px 14px; border-radius:8px; line-height:1.75; }
+  .info-card-tip::before { content:"💡 ポイント"; font-weight:700; display:block; font-size:0.78rem; margin-bottom:4px; color:#0369a1; }
+
+  .camera-wrap { max-width:560px; margin:0 auto 16px; }
+  svg.camera-svg { width:100%; height:auto; display:block; }
+  .hotspot { cursor:pointer; }
+  .hotspot .hs-outer { transition:opacity .15s; }
+  .hotspot:hover .hs-outer { opacity:.25; }
+  .hotspot.active .hs-inner { fill:#c0392b; }
+  .hotspot.active .hs-num  { fill:#fff; }
+
+  .ov-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-top:10px; }
+  .ov-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; cursor:pointer; transition:background .15s,border-color .15s; }
+  .ov-card:hover { background:var(--surface2); border-color:#bbb; }
+  .ov-icon  { font-size:1.5rem; margin-bottom:8px; }
+  .ov-title { font-size:0.95rem; font-weight:700; margin-bottom:3px; }
+  .ov-stars { font-size:0.72rem; color:#e69500; }
+  .ov-stars .e { color:#ddd; }
+  .ov-desc  { font-size:0.78rem; color:var(--text-light); margin-top:4px; line-height:1.5; }
+
+  .grid-diagram { background:var(--surface); border-radius:12px; padding:20px; margin-bottom:24px; text-align:center; }
+  .grid-diagram-title { font-size:0.9rem; font-weight:700; color:var(--text-sub); margin-bottom:14px; }
+
+  .hist-table { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:20px; }
+  .hist-col { background:var(--surface); border-radius:10px; padding:14px 12px; text-align:center; border:1px solid var(--border); }
+  .hist-col-label { font-size:0.8rem; font-weight:700; margin-bottom:6px; }
+  .hist-col.warn { border-color:#fca5a5; background:#fff5f5; }
+  .hist-col.ok   { border-color:#86efac; background:#f0fdf4; }
+  .hist-col-icon { font-size:1.3rem; margin-bottom:4px; }
+  .hist-col-desc { font-size:0.78rem; color:var(--text-sub); line-height:1.6; }
+
+  .fur-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px; margin-bottom:20px; }
+  .fur-card { border-radius:12px; padding:16px; border:1px solid var(--border); }
+  .fur-card.white { background:#fafafa; border-color:#ddd; }
+  .fur-card.black { background:#1a1a1a; color:#eee; border-color:#333; }
+  .fur-card.brown { background:#fdf6f0; border-color:#e8c9a8; }
+  .fur-label { font-size:0.78rem; font-weight:700; margin-bottom:6px; opacity:.7; }
+  .fur-title { font-size:0.95rem; font-weight:700; margin-bottom:6px; }
+  .fur-desc  { font-size:0.82rem; line-height:1.7; opacity:.8; }
+
+  /* 修正バッジ */
+  .fix-badge { display:inline-block; background:#fef3c7; color:#92400e; font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:4px; margin-left:8px; vertical-align:middle; }
+
+  .copyright { text-align:center; padding:20px; font-size:0.78rem; color:var(--text-light); border-top:1px solid var(--border); margin-top:40px; line-height:1.8; }
+  .copyright strong { color:var(--text-sub); }
+
+  @media (max-width:480px) {
+    .content { padding:22px 14px 70px; }
+    .tab-btn { padding:12px 12px; font-size:0.82rem; }
+    .compare-body { grid-template-columns:1fr; }
+    .compare-col:first-child { border-right:none; border-bottom:1px solid var(--border); }
+    .hist-table { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">CANON EOS R50</div>
+    <div class="model">カメラ操作ガイド</div>
+  </div>
+  <div class="header-tag">📷 前田 佳織 様 専用</div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('overview')">🏠 はじめに</button>
+  <button class="tab-btn" onclick="showTab('dial')">ダイヤル</button>
+  <button class="tab-btn" onclick="showTab('drive')">連写</button>
+  <button class="tab-btn" onclick="showTab('focus')">ピント</button>
+  <button class="tab-btn" onclick="showTab('area')">AFエリア</button>
+  <button class="tab-btn" onclick="showTab('display')">画面表示</button>
+  <button class="tab-btn" onclick="showTab('thumbaf')">親指AF</button>
+</div>
+
+<div class="content">
+
+  <!-- OVERVIEW -->
+  <div class="panel active" id="panel-overview">
+    <div class="page-header">
+      <div class="page-title">Canon EOS R50 操作ガイド</div>
+      <div class="page-sub">わんちゃん撮影の楽しさを一緒に学んでいきましょう🐾</div>
+    </div>
+    <div style="font-size:0.8rem;color:var(--text-light);letter-spacing:1px;margin-bottom:10px;font-family:'DM Mono',monospace;">カメラ背面図 ── 番号をタップして確認</div>
+    <div class="camera-wrap">
+      <svg class="camera-svg" viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="8" width="624" height="384" rx="16" fill="#f0f0f0" stroke="#d0d0d0" stroke-width="1.5"/>
+        <rect x="80" y="36" width="360" height="268" rx="5" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+        <rect x="85" y="41" width="350" height="258" rx="3" fill="#e8d0c8" opacity="0.4"/>
+        <text x="260" y="178" text-anchor="middle" fill="#bbb" font-size="13" font-family="Noto Sans JP">液晶モニター(バリアングル)</text>
+        <rect x="488" y="8" width="72" height="36" rx="5" fill="#ddd" stroke="#bbb" stroke-width="1"/>
+        <text x="524" y="29" text-anchor="middle" fill="#999" font-size="10" font-family="Noto Sans JP">EVF</text>
+        <rect x="484" y="56" width="52" height="20" rx="4" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+        <text x="510" y="69" text-anchor="middle" fill="#666" font-size="10" font-family="Noto Sans JP">MENU</text>
+        <circle cx="580" cy="100" r="12" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+        <text x="580" y="96" text-anchor="middle" fill="#999" font-size="8">✱</text>
+        <text x="580" y="107" text-anchor="middle" fill="#999" font-size="7" font-family="Noto Sans JP">AEロック</text>
+        <circle cx="612" cy="100" r="10" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+        <text x="612" y="104" text-anchor="middle" fill="#999" font-size="8" font-family="Noto Sans JP">⊕</text>
+        <circle cx="548" cy="220" r="50" fill="#e8e8e8" stroke="#bbb" stroke-width="1.5"/>
+        <circle cx="548" cy="220" r="32" fill="#ddd" stroke="#bbb" stroke-width="1"/>
+        <circle cx="548" cy="220" r="14" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+        <text x="548" y="170" text-anchor="middle" fill="#999" font-size="8" font-family="Noto Sans JP">露出補正</text>
+        <text x="548" y="270" text-anchor="middle" fill="#999" font-size="8" font-family="Noto Sans JP">🗑</text>
+        <text x="500" y="224" text-anchor="middle" fill="#999" font-size="7" font-family="Noto Sans JP">AF/MF</text>
+        <text x="596" y="224" text-anchor="middle" fill="#999" font-size="8" font-family="Noto Sans JP">⏱</text>
+        <text x="548" y="222" text-anchor="middle" fill="#bbb" font-size="8" font-family="Noto Sans JP">SET</text>
+        <rect x="472" y="130" width="44" height="18" rx="4" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+        <text x="494" y="142" text-anchor="middle" fill="#666" font-size="9" font-family="Noto Sans JP">INFO</text>
+        <rect x="472" y="158" width="44" height="18" rx="4" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+        <text x="494" y="170" text-anchor="middle" fill="#666" font-size="9" font-family="Noto Sans JP">Q</text>
+        <rect x="472" y="280" width="44" height="18" rx="4" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+        <text x="494" y="292" text-anchor="middle" fill="#666" font-size="9" font-family="Noto Sans JP">▶</text>
+        <rect x="520" y="280" width="52" height="18" rx="4" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+        <text x="546" y="292" text-anchor="middle" fill="#666" font-size="9" font-family="Noto Sans JP">MENU</text>
+        <rect x="8" y="358" width="624" height="34" rx="0" fill="#e8e8e8" stroke="#d0d0d0" stroke-width="1"/>
+
+        <g class="hotspot" id="hs-menu" onclick="showHotspot('menu')">
+          <circle class="hs-outer" cx="510" cy="66" r="20" fill="#c0392b" opacity="0.07"/>
+          <circle class="hs-inner" cx="510" cy="66" r="13" fill="#1a1a1a"/>
+          <text class="hs-num" x="510" y="71" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">1</text>
+        </g>
+        <g class="hotspot" id="hs-aelock" onclick="showHotspot('aelock')">
+          <circle class="hs-outer" cx="580" cy="100" r="20" fill="#c0392b" opacity="0.07"/>
+          <circle class="hs-inner" cx="580" cy="100" r="13" fill="#c0392b"/>
+          <text class="hs-num" x="580" y="105" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">2</text>
+        </g>
+        <g class="hotspot" id="hs-q" onclick="showHotspot('q')">
+          <circle class="hs-outer" cx="494" cy="167" r="20" fill="#c0392b" opacity="0.07"/>
+          <circle class="hs-inner" cx="494" cy="167" r="13" fill="#1a1a1a"/>
+          <text class="hs-num" x="494" y="172" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">3</text>
+        </g>
+        <g class="hotspot" id="hs-dial" onclick="showHotspot('dial')">
+          <circle class="hs-outer" cx="548" cy="192" r="20" fill="#c0392b" opacity="0.07"/>
+          <circle class="hs-inner" cx="548" cy="192" r="13" fill="#1a1a1a"/>
+          <text class="hs-num" x="548" y="197" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">4</text>
+        </g>
+        <g class="hotspot" id="hs-touch" onclick="showHotspot('touch')">
+          <circle class="hs-outer" cx="200" cy="178" r="30" fill="#c0392b" opacity="0.07"/>
+          <circle class="hs-inner" cx="200" cy="178" r="13" fill="#c0392b"/>
+          <text class="hs-num" x="200" y="183" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">5</text>
+        </g>
+        <g class="hotspot" id="hs-cross" onclick="showHotspot('cross')">
+          <circle class="hs-outer" cx="548" cy="248" r="20" fill="#c0392b" opacity="0.07"/>
+          <circle class="hs-inner" cx="548" cy="248" r="13" fill="#1a1a1a"/>
+          <text class="hs-num" x="548" y="253" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">6</text>
+        </g>
+      </svg>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">ボタンの説明</div>
+      <div class="info-card-name" id="info-name">番号をタップして確認してみましょう</div>
+      <div class="info-card-desc" id="info-desc">図の中の番号をタップすると、そのボタンの役割と使い方が表示されます。</div>
+      <div class="info-card-tip" id="info-tip"></div>
+    </div>
+    <div style="font-size:0.8rem;color:var(--text-light);letter-spacing:1px;margin:32px 0 12px;font-family:'DM Mono',monospace;">このガイドで学ぶ操作</div>
+    <div class="ov-grid">
+      <div class="ov-card" onclick="showTab('dial')"><div class="ov-icon">🎛</div><div class="ov-title">ダイヤル操作</div><div class="ov-stars">★★★</div><div class="ov-desc">Av・Tv・M・ISOの設定</div></div>
+      <div class="ov-card" onclick="showTab('drive')"><div class="ov-icon">⚡</div><div class="ov-title">連写モード</div><div class="ov-stars">★<span class="e">★★</span></div><div class="ov-desc">動くコを逃さない設定</div></div>
+      <div class="ov-card" onclick="showTab('focus')"><div class="ov-icon">🎯</div><div class="ov-title">ピントの合わせ方</div><div class="ov-stars">★★★</div><div class="ov-desc">ワンショット・サーボ・瞳AF</div></div>
+      <div class="ov-card" onclick="showTab('area')"><div class="ov-icon">🔲</div><div class="ov-title">AFエリア</div><div class="ov-stars">★★★</div><div class="ov-desc">全域・ゾーン・1点</div></div>
+      <div class="ov-card" onclick="showTab('display')"><div class="ov-icon">⊞</div><div class="ov-title">画面表示</div><div class="ov-stars">★★★</div><div class="ov-desc">グリッド線とヒストグラム</div></div>
+      <div class="ov-card" onclick="showTab('thumbaf')"><div class="ov-icon">👍</div><div class="ov-title">親指AF</div><div class="ov-stars">★★★</div><div class="ov-desc">AEロックボタンのカスタム</div></div>
+    </div>
+  </div>
+
+  <!-- DIAL -->
+  <div class="panel" id="panel-dial">
+    <div class="page-header">
+      <div class="page-title">ダイヤル操作</div>
+      <div class="page-sub">フルオートからの第一歩 ── 露出の3要素を覚えよう</div>
+      <div class="difficulty"><span class="stars">★★★</span><span>初級〜中級</span></div>
+    </div>
+    <div class="welcome">
+      <div class="welcome-label">🌱 前田さんへ・フルオート卒業の第一歩</div>
+      <div class="welcome-title">まずは Av（絞り優先）モード から始めましょう</div>
+      <div class="welcome-desc">いきなり全部自分で決めるMモードは難しいので、まずは <strong>Av（絞り優先）モード</strong> から。F値（背景のボケ感）だけ自分で決めて、明るさはカメラが自動で調整してくれます。失敗しにくく、確実にステップアップできます🌸</div>
+    </div>
+    <div class="concept">
+      <div class="concept-label">📖 Canon用語のおさらい</div>
+      <div class="concept-title">SonyとはモードダイヤルNo名称が違います</div>
+      <div class="concept-desc"><strong>P</strong>：プログラムオート　<strong>Av</strong>：絞り優先（SonyのA相当）　<strong>Tv</strong>：シャッタースピード優先（SonyのS相当）　<strong>M</strong>：マニュアル　<strong>A+</strong>：シーン自動判別（フルオート）</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">Av</div><div class="step-body"><span class="step-tag tag-btn">モードダイヤル（カメラ上面）</span><div class="step-title">撮影モードを「Av」にセット</div><div class="step-desc">カメラ上面の <strong>モードダイヤル</strong> を回して <strong>Av（絞り優先）</strong> に合わせます。F値だけ自分で決めて、シャッタースピードはカメラ任せ。慣れたら <strong>Tv（シャッター優先）</strong> や <strong>M（マニュアル）</strong> へステップアップ。</div></div></div>
+      <div class="step"><div class="step-num">F</div><div class="step-body"><span class="step-tag tag-btn">電子ダイヤル（カメラ上面・人差し指側）</span><div class="step-title">絞り（F値）を変える</div><div class="step-desc">カメラ上面の <strong>電子ダイヤル</strong> を人差し指で回してF値を変更します。F値が小さいほど（<strong>F2.8</strong> など）背景がぼけて主役が際立ちます。<br><br>・<strong>F2.8〜F4</strong>：わんちゃんアップ（背景ボケ）<br>・<strong>F5.6〜F8</strong>：日常スナップ・複数頭撮影<br>・<strong>F11〜F16</strong>：全体をクッキリ（風景など）</div></div></div>
+      <div class="step"><div class="step-num">±</div><div class="step-body"><span class="step-tag tag-btn">コントロールホイール上ボタン（±マーク）</span><div class="step-title">明るさを調整する（露出補正）</div><div class="step-desc">Avモード時、写真が明るすぎる・暗すぎる時は <strong>露出補正</strong> で調整。コントロールホイールの <strong>上ボタン（±マーク）</strong> を押してから、電子ダイヤルを回して「＋」「－」方向に動かします。</div></div></div>
+      <div class="step"><div class="step-num">ISO</div><div class="step-body"><span class="step-tag tag-menu">前面のISOボタン または Q → ISO</span><div class="step-title">ISOを設定する</div><div class="step-desc">カメラ前面・シャッターボタン後ろにある <strong>ISO感度設定ボタン</strong> を押すとISO設定画面が開きます。または <strong>Qボタン</strong> からも変更可能。初心者の方は <strong>ISO Auto</strong> がおすすめ。<br><br>・屋外昼間：ISO 100〜400<br>・室内・薄暗い：ISO 800〜3200<br>・夜間：ISO 3200〜6400</div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 前田さんへ・撮影設定の目安</div><ul><li>屋外・昼間：Avモード・F4〜F5.6・ISO Auto</li><li>室内・薄暗い：Avモード・F2.8〜F4・ISO Auto</li><li>動き回るわんちゃん：Tvモード・SS 1/500以上・ISO Auto</li><li>Canon EOS R50はISO3200まで余裕、ISO6400も実用範囲です</li></ul></div>
+  </div>
+
+  <!-- DRIVE -->
+  <div class="panel" id="panel-drive">
+    <div class="page-header">
+      <div class="page-title">連写モード</div>
+      <div class="page-sub">動き回るわんちゃんを連続撮影で逃さない</div>
+      <div class="difficulty"><span class="stars">★<span class="e">★★</span></span><span>初級</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-btn">コントロールホイール右ボタン（⏱マーク）</span><div class="step-title">ドライブモードを開く</div><div class="step-desc">コントロールホイールの <strong>右ボタン（⏱マーク）</strong> を押すと、ドライブモード選択画面が開きます。または MENU → カメラ設定 → ドライブモード からも設定可能。</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-btn">コントロールホイールで選択</span><div class="step-title">「高速連続撮影」を選ぶ</div><div class="step-desc">コントロールホイールで <strong>「高速連続撮影」</strong> を選択。Canon EOS R50 は最大 <strong>約15コマ／秒（電子シャッター）</strong> または <strong>約12コマ／秒（メカニカルシャッター）</strong> の連写ができます。</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-btn">シャッターボタン</span><div class="step-title">シャッターを押し続ける</div><div class="step-desc">シャッターを <strong>押し続けている間</strong>、連続して撮影されます。動き回るわんちゃんの決定的な瞬間をまとめて記録できます。</div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 連写のポイント</div><ul><li>SDカードは UHS-II または UHS-I V30 以上推奨</li><li>連写しすぎるとバッファが詰まることも。少しずつ連写するのがコツ</li><li>撮った後に「一番いい1枚を選ぶ」練習もしてみましょう</li><li>初心者は「低速連続撮影」（数コマ/秒）から始めるのもおすすめです</li></ul></div>
+  </div>
+
+  <!-- FOCUS -->
+  <div class="panel" id="panel-focus">
+    <div class="page-header">
+      <div class="page-title">ピントの合わせ方</div>
+      <div class="page-sub">わんちゃんの「目」にピントを合わせるのが鉄則です</div>
+      <div class="difficulty"><span class="stars">★★★</span><span>中級</span></div>
+    </div>
+    <div class="concept">
+      <div class="concept-label">📖 Canon の AF モード</div>
+      <div class="concept-title">ワンショットAF と サーボAF を使い分ける</div>
+      <div class="concept-desc">Canonでは <strong>「ワンショットAF」（止まったもの）</strong> と <strong>「サーボAF」（動くもの）</strong> で使い分けます。SonyではAF-S・AF-Cと呼ばれるものに相当します。Canon EOS R50 には <strong>動物検出AF</strong> も搭載されており、わんちゃんの目を自動検出してくれます🐾</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">S</div><div class="step-body"><span class="step-tag tag-tip">ワンショットAF</span><div class="step-title">止まっているとき ── ワンショットAF</div><div class="step-desc">シャッター半押しでピントを合わせて <strong>固定</strong> します。寝ているわんちゃん・ポーズを決めた瞬間など <strong>動かない被写体</strong> に最適。合うと「ピピッ」と音が鳴ります。</div></div></div>
+      <div class="step"><div class="step-num">C</div><div class="step-body"><span class="step-tag tag-btn">サーボAF</span><div class="step-title">動いているとき ── サーボAF</div><div class="step-desc">半押し中、動く被写体を <strong>追いかけてピントを合わせ続けます</strong>。走り回るわんちゃんには <strong>必ずこれ</strong> を使いましょう。Canon EOS R50 のサーボAFは初心者にも扱いやすい性能です。</div></div></div>
+      <div class="step"><div class="step-num">切替</div><div class="step-body"><span class="step-tag tag-menu">Q ボタン → AFモード</span><div class="step-title">AFモードの切り替え方</div><div class="step-desc"><strong>Q ボタン</strong> を押してクイック設定画面を表示し、AFモードを選択 → ワンショット／AIフォーカス／サーボ から選びます。または MENU → AF → AFモード からも設定可能。</div></div></div>
+      <div class="step"><div class="step-num">👁</div><div class="step-body"><span class="step-tag tag-menu">MENU → AF → 検出する被写体</span><div class="step-title">動物検出AFを必ずONに ⭐</div><div class="step-desc"><strong>MENU → AF → 検出する被写体 → 「動物優先」</strong> を選択。これでわんちゃんの目を自動検出してピントを合わせてくれます✨ <strong>サーボAF</strong> と組み合わせれば、走り回る子もばっちり追従します。</div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 ピント設定のポイント</div><ul><li>動物検出AFは「動物優先」モードで人物・動物両方を認識可能</li><li>動くわんちゃんは「サーボAF + 動物検出」が最強の組み合わせ</li><li>液晶を直接タップしてピント位置を指定することもできます</li><li>動物検出AFが効かない時はわんちゃんの顔が小さすぎる可能性。少し近づいてみて</li></ul></div>
+  </div>
+
+  <!-- AREA -->
+  <div class="panel" id="panel-area">
+    <div class="page-header">
+      <div class="page-title">AFエリア</div>
+      <div class="page-sub">「どこにピントを合わせるか」の範囲を決める設定</div>
+      <div class="difficulty"><span class="stars">★★★</span><span>中級</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">開く</div><div class="step-body"><span class="step-tag tag-btn">Q ボタン → AFエリア</span><div class="step-title">Q ボタンから開く</div><div class="step-desc"><strong>Q ボタン</strong> を押してクイック設定画面を表示。AFエリアを選んでコントロールホイールで変更します。または、AFフレーム選択ボタン（⊕マーク）からも変更できます。</div></div></div>
+      <div class="step"><div class="step-num">W</div><div class="step-body"><span class="step-tag tag-tip">全域AF ── まず試すならコレ</span><div class="step-title">全域AF</div><div class="step-desc">画面全体でカメラが <strong>自動的に被写体を選んでピント</strong> を合わせます。動物検出AFと組み合わせれば、初心者の方でも失敗が少ないです。<br><br><strong>前田さんはまずこの「全域AF」＋ 動物検出AF</strong> で始めるのがおすすめ✨</div></div></div>
+      <div class="step"><div class="step-num">Z</div><div class="step-body"><span class="step-tag tag-btn">ゾーンAF</span><div class="step-title">ゾーンAF</div><div class="step-desc">画面内の特定のエリアを優先してピントを合わせます。<strong>わんちゃんがいる位置が予測できる</strong> ときに便利です。</div></div></div>
+      <div class="step"><div class="step-num">●</div><div class="step-body"><span class="step-tag tag-menu">1点AF / スポット1点AF</span><div class="step-title">1点AF <span class="fix-badge">✏ 修正済み</span></div><div class="step-desc">タッチパネルで <strong>ピントを合わせたい場所を直接タップ</strong> して指定できます。また、<strong>コントロールホイールの上下左右ボタン（十字キー）</strong> でもピント位置を移動できます。<br><br>※ EOS R50にはジョイスティック（マルチコントローラー）はありません。タッチパネルが最も素早く使えます。<br><br>「手前のお花にピントが行ってしまう」あるあるは、1点AFに切り替えれば解決します。</div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 前田さんへ・AFエリアのステップアップ</div><ul><li>STEP 1：まず「全域AF + 動物検出AF」で撮ってみましょう</li><li>STEP 2：慣れてきたら「ゾーンAF」で構図を意識して撮影</li><li>STEP 3：お花畑や障害物のあるシーンでは「1点AF」で確実に目を狙う</li><li>ピント位置の移動は液晶を直接タップするのが一番速いです</li></ul></div>
+  </div>
+
+  <!-- DISPLAY -->
+  <div class="panel" id="panel-display">
+    <div class="page-header">
+      <div class="page-title">画面表示</div>
+      <div class="page-sub">グリッド線とヒストグラムで「構図」と「明るさ」を見える化</div>
+      <div class="difficulty"><span class="stars">★★★</span><span>初級〜中級</span></div>
+    </div>
+    <div style="font-size:1rem;font-weight:700;margin-bottom:16px;">⊞ グリッド線 ── 三分割法で構図を決める</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-menu">MENU ボタン</span><div class="step-title">MENU ボタンを押す</div><div class="step-desc">背面右下の <strong>MENU ボタン</strong> を押してメニュー画面を表示します。</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-menu">SET UP → グリッド表示</span><div class="step-title">グリッド表示を選ぶ</div><div class="step-desc"><strong>「SET UP」タブ → 「グリッド表示」</strong> を選択し、グリッドの種類を選びます。</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-tip">種類を選ぶ</span><div class="step-title">「3×3」を選ぶ</div><div class="step-desc"><strong>「3×3」</strong> を選択します。画面が9つに分割され、線の交点が <strong>被写体を置くとキレイに見える位置</strong>（三分割法のポイント）になります。</div></div></div>
+    </div>
+    <div class="grid-diagram">
+      <div class="grid-diagram-title">三分割法 ── 黄色の交点に被写体の目を合わせると◎</div>
+      <svg viewBox="0 0 360 240" width="100%" style="max-width:380px;display:block;margin:0 auto;border-radius:8px;overflow:hidden;">
+        <rect width="360" height="240" fill="#f0e8e8"/>
+        <line x1="120" y1="0" x2="120" y2="240" stroke="#fff" stroke-width="2"/>
+        <line x1="240" y1="0" x2="240" y2="240" stroke="#fff" stroke-width="2"/>
+        <line x1="0" y1="80"  x2="360" y2="80"  stroke="#fff" stroke-width="2"/>
+        <line x1="0" y1="160" x2="360" y2="160" stroke="#fff" stroke-width="2"/>
+        <circle cx="120" cy="80"  r="8" fill="#e69500"/>
+        <circle cx="240" cy="80"  r="8" fill="#e69500"/>
+        <circle cx="120" cy="160" r="8" fill="#e69500"/>
+        <circle cx="240" cy="160" r="8" fill="#e69500"/>
+        <ellipse cx="232" cy="114" rx="28" ry="22" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="4"/>
+        <text x="232" y="118" text-anchor="middle" fill="#888" font-size="10" font-family="Noto Sans JP">顔</text>
+        <text x="180" y="225" text-anchor="middle" fill="#aaa" font-size="10" font-family="Noto Sans JP">3×3グリッド表示イメージ</text>
+      </svg>
+    </div>
+    <div class="point" style="margin-bottom:32px;"><div class="point-label">💡 構図のポイント</div><ul><li>目は必ず交点（黄色のポイント）の近くに配置しましょう</li><li>わんちゃんの進行方向に「空間」を作ると動きが伝わりやすくなります</li><li>グリッドは写真には写りません ── 常に表示したままで大丈夫です</li></ul></div>
+
+    <div style="font-size:1rem;font-weight:700;margin-bottom:16px;">📊 ヒストグラム ── 写真の明るさを「グラフ」で確認</div>
+    <div class="concept"><div class="concept-label">📖 ヒストグラムとは？</div><div class="concept-title">写真の明るさを可視化するグラフ</div><div class="concept-desc">液晶の見た目だけでは分からない「正確な明るさ」をグラフで確認できる機能です。<strong>横軸 = 暗い ← → 明るい</strong>、<strong>縦軸 = そのトーンのピクセル数</strong> で表示されます。</div></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-menu">INFO ボタン</span><div class="step-title">INFO ボタンで表示切替</div><div class="step-desc">背面の <strong>INFO ボタン</strong> を何度か押すと、ヒストグラムが表示される画面に切り替わります。</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-menu">再生画面 → INFO ボタン</span><div class="step-title">撮影後にも確認できる</div><div class="step-desc">撮影した写真でも、再生画面で <strong>INFO ボタン</strong> を押すとヒストグラムを確認できます。「あれ、ちょっと暗かったかな？」という時に客観的に確認できます。</div></div></div>
+    </div>
+    <div class="hist-table">
+      <div class="hist-col warn"><div class="hist-col-icon">⚠</div><div class="hist-col-label" style="color:#9b1c1c;">山が左に偏る</div><div class="hist-col-desc">暗い・黒つぶれ注意<br>露出補正＋に</div></div>
+      <div class="hist-col ok"><div class="hist-col-icon">✓</div><div class="hist-col-label" style="color:#15803d;">山が中央〜やや右</div><div class="hist-col-desc">適正露出<br>理想的なバランス</div></div>
+      <div class="hist-col warn"><div class="hist-col-icon">⚠</div><div class="hist-col-label" style="color:#9b1c1c;">山が右に偏る</div><div class="hist-col-desc">白飛び注意<br>露出補正－に</div></div>
+    </div>
+    <div class="fur-grid">
+      <div class="fur-card white"><div class="fur-label" style="color:#666;">白い毛色のわんちゃん</div><div class="fur-title" style="color:#333;">山はやや右寄りが正解</div><div class="fur-desc" style="color:#555;">右端で切れない範囲で右に寄せる。露出補正は ＋0.7〜＋1.0。</div></div>
+      <div class="fur-card black"><div class="fur-label">黒い毛色のわんちゃん</div><div class="fur-title">山は左寄りでも問題なし</div><div class="fur-desc">左端ギリギリで止まるくらいの露出に。露出補正は －0.7〜－1.0。</div></div>
+      <div class="fur-card brown"><div class="fur-label" style="color:#92400e;">茶色系・混色のわんちゃん</div><div class="fur-title" style="color:#78350f;">中央付近が目安</div><div class="fur-desc" style="color:#92400e;">最も適正露出を判断しやすい。両端で切れない範囲で露出を決める。</div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 ヒストグラム実践のコツ</div><ul><li>逆光シーン：背景の白飛びを許容して、わんちゃんの顔の露出を優先</li><li>雪・砂浜・白い壁：山が右に寄りすぎないよう露出補正－0.7〜－1.0</li><li>液晶で見て大丈夫そうより <strong>ヒストグラムを信じる</strong> のが鉄則です</li></ul></div>
+  </div>
+
+  <!-- THUMB AF -->
+  <div class="panel" id="panel-thumbaf">
+    <div class="page-header">
+      <div class="page-title">親指AF設定</div>
+      <div class="page-sub">AEロックボタンをカスタムしてプロの撮り方に近づこう</div>
+      <div class="difficulty"><span class="stars">★★★</span><span>上級</span></div>
+    </div>
+    <div class="concept">
+      <div class="concept-label">📖 親指AFとは？</div>
+      <div class="concept-title">シャッターとAFを「分離」する撮り方</div>
+      <div class="concept-desc">通常はシャッター半押しでAFが動きますが、親指AFでは <strong>AF用ボタンだけでAFを動かし</strong>、シャッターはAFなしで切れるようにします。<strong>Canon EOS R50 には専用のAF-ONボタンがないので、AEロックボタン（✱マーク）をカスタマイズして親指AFを実現します。</strong></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-menu">MENU → カスタム機能(C.Fn) → ボタンカスタマイズ</span><div class="step-title">MENU からカスタム機能を開く</div><div class="step-desc"><strong>MENU → 「カスタム機能（C.Fn）」タブ → 「ボタンカスタマイズ」</strong> を選択。</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-btn">AEロックボタン → 「測距・AF開始」を割り当て</span><div class="step-title">AEロックボタンに「AFオン」を割り当て</div><div class="step-desc">一覧から <strong>「AEロックボタン」</strong> を選択し、<strong>「測距・AF開始」</strong> を割り当てます。これで AEロックボタンが親指AF用ボタンに変身します。</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-menu">同じ画面 → シャッターボタン → 「AE/FEロック」</span><div class="step-title">シャッター半押しのAFを切る</div><div class="step-desc">同じ画面で <strong>「シャッターボタン」</strong> を <strong>「AE/FEロック」</strong> に変更。これでシャッターはAFなしで切れるようになります。</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><span class="step-tag tag-btn">右親指で AEロック（✱）を押しながら撮影</span><div class="step-title">実際の使い方</div><div class="step-desc">右手親指で <strong>AEロックボタン（✱マーク）を押している間だけAFが動きます</strong>。ピントが合ったらボタンを離してシャッターを切ります。</div></div></div>
+    </div>
+    <div class="compare">
+      <div class="compare-head">通常AF と 親指AF の違い</div>
+      <div class="compare-body">
+        <div class="compare-col"><div class="compare-col-title">通常AF（初期設定）</div>シャッター半押し → AF動く<br>シャッター全押し → 撮影<br><br><span class="good">✔ 操作がシンプル</span><br><span class="meh">△ ピント固定が難しい</span></div>
+        <div class="compare-col"><div class="compare-col-title" style="color:var(--red);">親指AF（カスタム後）</div>AEロックを押す → AF動く<br>シャッター → AFなしで撮影<br><br><span class="good">✔ ピント固定が自在</span><br><span class="good">✔ 動体・静止体の切替が速い</span></div>
+      </div>
+    </div>
+    <div class="point"><div class="point-label">💡 親指AF のポイント</div><ul><li>前田さんはまず通常のAFに慣れてから、次のステップとして挑戦するのがおすすめです</li><li>Canon EOS R50 はAF-ON専用ボタンがないので、AEロックボタンを活用します</li><li>元に戻したい場合は「ボタンカスタマイズ」をリセットするだけです</li></ul></div>
+  </div>
+
+</div>
+
+<footer class="copyright">
+  <strong>© 2026 wan.shutter</strong>　wan.methods<br>
+  本資料の無断転用・複製・再配布を禁じます。<br>
+  受講者本人のみご使用ください。
+</footer>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if (b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+const hs = {
+  menu:  { name:'① MENU ボタン', desc:'詳細な設定変更に使います。グリッド線・AFモード・動物検出・カスタム機能など、じっくり設定を変えたい時に使用します。', tip:'MENUは「カメラ設定」「AF」「再生」「SET UP」「カスタム機能」のタブ構造。よく使う設定はMyメニューに登録すると便利です。' },
+  aelock:{ name:'② AEロックボタン（✱マーク）', desc:'通常はAE（自動露出）をロックするボタンですが、カスタマイズすることで「親指AF」用のボタンとして使えます。R50にはAF-ON専用ボタンがないため、このボタンをカスタムします。', tip:'MENU → カスタム機能(C.Fn) → ボタンカスタマイズ から「測距・AF開始」を割り当てると親指AFが使えるようになります。' },
+  q:     { name:'③ Q（クイック設定）ボタン', desc:'よく使う設定をすばやく変更できるクイック設定画面を開きます。AFモード・AFエリア・ISO・ホワイトバランスなど、撮影現場での操作はここで完結します。', tip:'QボタンはCanonの「Fn（ファンクション）」に相当します。撮影中に最もよく使うボタンの一つです。' },
+  dial:  { name:'④ コントロールホイール', desc:'メニュー操作で上下左右の移動、各方向ボタンへの機能割り当てがあります。上ボタン＝露出補正、右ボタン＝ドライブモード、左ボタン＝AF/MF切替、下ボタン＝消去。', tip:'Avモード時はこのホイールを回すことでF値を素早く変更できます。撮影中に頻繁に使う操作なので覚えておきましょう。' },
+  touch: { name:'⑤ タッチパネル液晶モニター', desc:'R50の液晶はタッチ操作対応です。ピントを合わせたい場所を直接タップして指定できます。ジョイスティック（マルチコントローラー）がないR50では、タッチパネルがピント位置移動の主な手段です。', tip:'タッチAFはとても直感的で速いです。わんちゃんの目を直接タップしてからシャッターを切る使い方が特におすすめです。' },
+  cross: { name:'⑥ コントロールホイール（下ボタン側）', desc:'コントロールホイールの上下左右ボタンを使ってピント位置（AFフレーム）を移動できます。1点AFのモード時に有効です。', tip:'タッチパネルの方が素早く操作できますが、カメラをしっかり構えたまま片手で操作したい時はホイールボタンが便利です。' }
+};
+function showHotspot(key) {
+  const d = hs[key];
+  document.getElementById('info-name').textContent = d.name;
+  document.getElementById('info-desc').textContent = d.desc;
+  const tip = document.getElementById('info-tip');
+  tip.textContent = d.tip;
+  tip.style.display = 'block';
+  document.querySelectorAll('.hotspot').forEach(h => h.classList.remove('active'));
+  document.getElementById('hs-' + key).classList.add('active');
+}
+</script>
+
+</body>
+</html>
