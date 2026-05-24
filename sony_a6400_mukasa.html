@@ -1,1 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sony α6400 操作ガイド｜wan.methods</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#fff;--surface:#f5f5f5;--surface2:#ececec;--border:#ddd;
+    --text:#1a1a1a;--text-sub:#555;--text-light:#888;
+    --yellow:#e69500;--blue:#1d4ed8;--green:#15803d;
+    --tag-menu-bg:#dbeafe;--tag-menu-fg:#1e40af;
+    --tag-btn-bg:#fef3c7;--tag-btn-fg:#92400e;
+    --tag-tip-bg:#dcfce7;--tag-tip-fg:#166534;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:17px;line-height:1.75;-webkit-text-size-adjust:100%;}
+  header{background:#fff;border-bottom:2px solid var(--border);padding:16px 24px;position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;}
+  .brand{font-family:'DM Mono',monospace;font-size:1.1rem;font-weight:500;letter-spacing:2px;}
+  .model{font-size:0.8rem;color:var(--text-light);margin-top:1px;}
+  .header-tag{margin-left:auto;background:var(--surface2);color:var(--text-sub);font-size:0.78rem;padding:4px 12px;border-radius:20px;font-weight:500;white-space:nowrap;}
+  .tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:14px 18px;background:none;border:none;color:var(--text-light);font-family:'Noto Sans JP',sans-serif;font-size:0.88rem;font-weight:500;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;line-height:1;}
+  .tab-btn:hover{color:var(--text);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--text);}
+  .content{max-width:760px;margin:0 auto;padding:32px 20px 80px;}
+  .panel{display:none;}.panel.active{display:block;}
+  .page-header{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+  .page-title{font-size:1.6rem;font-weight:700;margin-bottom:6px;}
+  .page-sub{font-size:1rem;color:var(--text-sub);}
+  .difficulty{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:0.85rem;color:var(--text-sub);background:var(--surface);padding:5px 12px;border-radius:20px;}
+  .stars{color:var(--yellow);font-size:1rem;letter-spacing:2px;}.stars .e{color:#ddd;}
+  .steps{display:flex;flex-direction:column;gap:14px;margin-bottom:28px;}
+  .step{background:var(--surface);border-radius:12px;padding:20px 20px 20px 18px;display:flex;gap:16px;align-items:flex-start;}
+  .step-num{font-family:'DM Mono',monospace;font-size:0.85rem;font-weight:500;color:#fff;background:var(--text);min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px;}
+  .step-body{flex:1;}
+  .step-tag{display:inline-block;font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:4px;margin-bottom:6px;letter-spacing:.3px;}
+  .tag-menu{background:var(--tag-menu-bg);color:var(--tag-menu-fg);}
+  .tag-btn{background:var(--tag-btn-bg);color:var(--tag-btn-fg);}
+  .tag-tip{background:var(--tag-tip-bg);color:var(--tag-tip-fg);}
+  .step-title{font-size:1.05rem;font-weight:700;margin-bottom:5px;}
+  .step-desc{font-size:0.95rem;color:var(--text-sub);line-height:1.8;}
+  .step-desc strong{color:var(--text);font-weight:700;}
+  .point{background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:18px 20px;margin-bottom:24px;}
+  .point-label{font-size:0.85rem;font-weight:700;color:#0369a1;margin-bottom:10px;}
+  .point ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .point li{font-size:0.95rem;color:#0c4a6e;padding-left:20px;position:relative;line-height:1.75;}
+  .point li::before{content:"✔";position:absolute;left:0;color:#0ea5e9;font-size:0.85rem;}
+  .concept{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:18px 20px;margin-bottom:24px;}
+  .concept-label{font-size:0.8rem;font-weight:700;color:#15803d;margin-bottom:6px;}
+  .concept-title{font-size:1.1rem;font-weight:700;margin-bottom:6px;}
+  .concept-desc{font-size:0.95rem;color:var(--text-sub);line-height:1.8;}
+  .concept-desc strong{color:var(--text);font-weight:700;}
+  .apple-note{background:#fff5ee;border:1px solid #ffd4b0;border-left:4px solid #ff6b00;border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:0.92rem;color:#7c2d12;line-height:1.75;}
+  .apple-note-label{font-size:0.75rem;font-weight:700;color:#ff6b00;margin-bottom:5px;letter-spacing:0.5px;}
+  .apple-note strong{color:#7c2d12;font-weight:700;}
+  .compare{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;}
+  .compare-head{background:var(--surface);padding:12px 18px;font-size:0.85rem;font-weight:700;color:var(--text-sub);border-bottom:1px solid var(--border);}
+  .compare-body{display:grid;grid-template-columns:1fr 1fr;}
+  .compare-col{padding:16px 18px;font-size:0.92rem;color:var(--text-sub);line-height:1.9;}
+  .compare-col:first-child{border-right:1px solid var(--border);}
+  .compare-col-title{font-size:0.85rem;font-weight:700;color:var(--text);margin-bottom:8px;}
+  .good{color:var(--green);font-weight:600;}.meh{color:var(--text-light);}
+  .info-card{background:var(--surface);border-radius:12px;padding:18px 20px;margin-top:16px;min-height:90px;border-left:4px solid var(--text);}
+  .info-card-label{font-size:0.75rem;font-weight:700;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:6px;}
+  .info-card-name{font-size:1.05rem;font-weight:700;margin-bottom:6px;}
+  .info-card-desc{font-size:0.95rem;color:var(--text-sub);line-height:1.8;}
+  .info-card-tip{display:none;margin-top:12px;font-size:0.9rem;color:#0c4a6e;background:#f0f9ff;border:1px solid #bae6fd;padding:12px 14px;border-radius:8px;line-height:1.75;}
+  .info-card-tip::before{content:"💡 ポイント";font-weight:700;display:block;font-size:0.78rem;margin-bottom:4px;color:#0369a1;}
+  .camera-wrap{max-width:580px;margin:0 auto 16px;}
+  svg.camera-svg{width:100%;height:auto;display:block;}
+  .hotspot{cursor:pointer;}
+  .hotspot .hs-outer{transition:opacity .15s;}
+  .hotspot:hover .hs-outer{opacity:.25;}
+  .hotspot.active .hs-inner{fill:#1d4ed8;}
+  .hotspot.active .hs-num{fill:#fff;}
+  .ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px;margin-top:10px;}
+  .ov-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:background .15s,border-color .15s;}
+  .ov-card:hover{background:var(--surface2);border-color:#bbb;}
+  .ov-icon{font-size:1.5rem;margin-bottom:8px;}
+  .ov-title{font-size:0.95rem;font-weight:700;margin-bottom:3px;}
+  .ov-stars{font-size:0.72rem;color:var(--yellow);}.ov-stars .e{color:#ddd;}
+  .ov-desc{font-size:0.78rem;color:var(--text-light);margin-top:4px;line-height:1.5;}
+  .grid-diagram{background:var(--surface);border-radius:12px;padding:20px;margin-bottom:24px;text-align:center;}
+  .grid-diagram-title{font-size:0.9rem;font-weight:700;color:var(--text-sub);margin-bottom:14px;}
+  .copyright{margin-top:48px;padding:20px 16px;border-top:1px solid var(--border);text-align:center;font-size:0.78rem;color:var(--text-light);line-height:1.8;}
+  .copyright-brand{font-family:'DM Mono',monospace;font-size:0.85rem;color:var(--text-sub);font-weight:500;margin-bottom:8px;letter-spacing:1px;}
+  @media(min-width:640px){body{font-size:18px;}.page-title{font-size:1.9rem;}.tab-btn{font-size:0.95rem;padding:16px 22px;}}
+  @media(max-width:480px){.content{padding:22px 14px 70px;}.tab-btn{padding:12px 13px;font-size:0.83rem;}.step{padding:16px 14px;gap:12px;}.compare-col{font-size:0.85rem;padding:12px;}}
+</style>
+</head>
+<body>
 
+<header>
+  <div>
+    <div class="brand">SONY α6400</div>
+    <div class="model">カメラ操作ガイド</div>
+  </div>
+  <div class="header-tag">📷 武笠 様 専用｜ピノナノちゃん</div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('overview')">🏠 はじめに</button>
+  <button class="tab-btn" onclick="showTab('dial')">ダイヤル</button>
+  <button class="tab-btn" onclick="showTab('drive')">連写</button>
+  <button class="tab-btn" onclick="showTab('focus')">ピント</button>
+  <button class="tab-btn" onclick="showTab('area')">フォーカスエリア</button>
+  <button class="tab-btn" onclick="showTab('grid')">グリッド線</button>
+  <button class="tab-btn" onclick="showTab('thumbaf')">親指AF</button>
+</div>
+
+<div class="content">
+
+  <!-- OVERVIEW -->
+  <div class="panel active" id="panel-overview">
+    <div class="page-header">
+      <div class="page-title">Sony α6400 操作ガイド</div>
+      <div class="page-sub">ピノナノちゃんをもっと素敵に撮ろう🐾</div>
+    </div>
+
+    <div class="apple-note">
+      <div class="apple-note-label">iPhone17 から α6400 へ ── まず知っておきたいこと</div>
+      iPhoneのカメラはAIが自動で全部やってくれますが、α6400は <strong>自分で設定を決める楽しさ</strong> があります。最初は「難しい」と感じるかもしれませんが、慣れると <strong>iPhoneでは絶対に撮れない1枚</strong> が撮れるようになります。まずは <strong>A（絞り優先）モード</strong> から始めましょう✨
+    </div>
+
+    <div style="font-size:0.8rem;color:var(--text-light);letter-spacing:1px;margin-bottom:10px;font-family:'DM Mono',monospace;">カメラ背面図 ── 番号をタップして確認</div>
+    <div class="camera-wrap">
+      <svg class="camera-svg" viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="50" width="624" height="340" rx="12" fill="#1e1e1e" stroke="#111" stroke-width="1.5"/>
+        <rect x="8" y="34" width="624" height="28" rx="8" fill="#181818" stroke="#111"/>
+        <rect x="565" y="28" width="67" height="56" rx="10" fill="#252525" stroke="#111"/>
+        <circle cx="600" cy="48" r="14" fill="#2a2a2a" stroke="#111"/>
+        <circle cx="600" cy="48" r="7" fill="#555" stroke="#111"/>
+        <text x="600" y="52" text-anchor="middle" fill="#888" font-size="6" font-family="Noto Sans JP">SS</text>
+        <circle cx="540" cy="46" r="18" fill="#2a2a2a" stroke="#111" stroke-width="1.5"/>
+        <circle cx="540" cy="46" r="11" fill="#1e1e1e" stroke="#111"/>
+        <text x="540" y="43" text-anchor="middle" fill="#aaa" font-size="6" font-family="Noto Sans JP">M A S</text>
+        <text x="540" y="52" text-anchor="middle" fill="#aaa" font-size="6" font-family="Noto Sans JP">P Auto</text>
+        <rect x="60" y="60" width="140" height="46" rx="7" fill="#111" stroke="#0a0a0a" stroke-width="1.5"/>
+        <rect x="74" y="72" width="112" height="26" rx="3" fill="#0a0a0a"/>
+        <text x="130" y="89" text-anchor="middle" fill="#444" font-size="9" font-family="Noto Sans JP">EVF</text>
+        <rect x="226" y="36" width="36" height="18" rx="4" fill="#2a2a2a" stroke="#111"/>
+        <text x="244" y="48" text-anchor="middle" fill="#aaa" font-size="8">⚡</text>
+        <rect x="272" y="36" width="46" height="18" rx="4" fill="#2a2a2a" stroke="#111"/>
+        <text x="295" y="48" text-anchor="middle" fill="#aaa" font-size="8.5" font-family="Noto Sans JP">MENU</text>
+        <rect x="348" y="36" width="46" height="18" rx="4" fill="#333" stroke="#111"/>
+        <text x="371" y="44" text-anchor="middle" fill="#aaa" font-size="6" font-family="Noto Sans JP">AF/MF</text>
+        <text x="371" y="52" text-anchor="middle" fill="#aaa" font-size="6" font-family="Noto Sans JP">AEL</text>
+        <rect x="38" y="118" width="308" height="210" rx="3" fill="#111"/>
+        <rect x="42" y="122" width="300" height="202" rx="2" fill="#1a2a1a" opacity="0.8"/>
+        <text x="192" y="226" text-anchor="middle" fill="#444" font-size="12" font-family="Noto Sans JP">液晶モニター</text>
+        <text x="192" y="244" text-anchor="middle" fill="#333" font-size="10" font-family="Noto Sans JP">(チルト式)</text>
+        <circle cx="400" cy="108" r="11" fill="#2a2a2a" stroke="#111"/>
+        <text x="400" y="112" text-anchor="middle" fill="#aaa" font-size="9">⊕</text>
+        <rect x="388" y="138" width="36" height="18" rx="4" fill="#2a2a2a" stroke="#111"/>
+        <text x="406" y="150" text-anchor="middle" fill="#aaa" font-size="8.5" font-family="Noto Sans JP">Fn</text>
+        <circle cx="370" cy="188" r="11" fill="#2a2a2a" stroke="#111"/>
+        <text x="370" y="192" text-anchor="middle" fill="#aaa" font-size="11">↩</text>
+        <circle cx="510" cy="255" r="56" fill="#252525" stroke="#111" stroke-width="1.5"/>
+        <circle cx="510" cy="255" r="36" fill="#1e1e1e" stroke="#111"/>
+        <circle cx="510" cy="255" r="17" fill="#2a2a2a" stroke="#111"/>
+        <text x="510" y="212" text-anchor="middle" fill="#777" font-size="7" font-family="Noto Sans JP">DISP</text>
+        <text x="556" y="259" text-anchor="middle" fill="#777" font-size="7" font-family="Noto Sans JP">ISO</text>
+        <text x="464" y="259" text-anchor="middle" fill="#777" font-size="6" font-family="Noto Sans JP">⏱ドライブ</text>
+        <text x="510" y="300" text-anchor="middle" fill="#777" font-size="7">🗑</text>
+        <text x="510" y="259" text-anchor="middle" fill="#666" font-size="7" font-family="Noto Sans JP">SET</text>
+        <circle cx="590" cy="310" r="11" fill="#2a2a2a" stroke="#111"/>
+        <text x="590" y="314" text-anchor="middle" fill="#aaa" font-size="7.5" font-family="Noto Sans JP">C2</text>
+        <circle cx="430" cy="330" r="11" fill="#2a2a2a" stroke="#111"/>
+        <text x="430" y="334" text-anchor="middle" fill="#aaa" font-size="11">▶</text>
+        <!-- HOTSPOTS -->
+        <g class="hotspot" id="hs-shutter" onclick="showHotspot('shutter')">
+          <circle class="hs-outer" cx="600" cy="48" r="18" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="600" cy="48" r="13" fill="#e69500"/>
+          <text class="hs-num" x="600" y="53" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">1</text>
+        </g>
+        <g class="hotspot" id="hs-mode" onclick="showHotspot('mode')">
+          <circle class="hs-outer" cx="540" cy="46" r="18" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="540" cy="46" r="13" fill="#e69500"/>
+          <text class="hs-num" x="540" y="51" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">2</text>
+        </g>
+        <g class="hotspot" id="hs-menu" onclick="showHotspot('menu')">
+          <circle class="hs-outer" cx="295" cy="45" r="18" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="295" cy="45" r="13" fill="#e69500"/>
+          <text class="hs-num" x="295" y="50" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">3</text>
+        </g>
+        <g class="hotspot" id="hs-afmf" onclick="showHotspot('afmf')">
+          <circle class="hs-outer" cx="371" cy="45" r="18" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="371" cy="45" r="13" fill="#e69500"/>
+          <text class="hs-num" x="371" y="50" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">4</text>
+        </g>
+        <g class="hotspot" id="hs-fn" onclick="showHotspot('fn')">
+          <circle class="hs-outer" cx="406" cy="149" r="18" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="406" cy="149" r="13" fill="#e69500"/>
+          <text class="hs-num" x="406" y="154" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">5</text>
+        </g>
+        <g class="hotspot" id="hs-wheel" onclick="showHotspot('wheel')">
+          <circle class="hs-outer" cx="510" cy="255" r="20" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="510" cy="255" r="13" fill="#e69500"/>
+          <text class="hs-num" x="510" y="260" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">6</text>
+        </g>
+        <g class="hotspot" id="hs-c2" onclick="showHotspot('c2')">
+          <circle class="hs-outer" cx="590" cy="310" r="18" fill="#e69500" opacity="0.1"/>
+          <circle class="hs-inner" cx="590" cy="310" r="13" fill="#e69500"/>
+          <text class="hs-num" x="590" y="315" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="DM Mono">7</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-label">ボタンの説明</div>
+      <div class="info-card-name" id="info-name">番号をタップして確認してみましょう</div>
+      <div class="info-card-desc" id="info-desc">図の中の番号をタップすると、そのボタンの役割と使い方が表示されます。</div>
+      <div class="info-card-tip" id="info-tip"></div>
+    </div>
+
+    <div style="font-size:0.8rem;color:var(--text-light);letter-spacing:1px;margin:32px 0 12px;font-family:'DM Mono',monospace;">このガイドで学ぶ操作</div>
+    <div class="ov-grid">
+      <div class="ov-card" onclick="showTab('dial')"><div class="ov-icon">🎛</div><div class="ov-title">ダイヤル操作</div><div class="ov-stars">★★<span class="e">★</span></div><div class="ov-desc">A・M・SS・F・ISO設定</div></div>
+      <div class="ov-card" onclick="showTab('drive')"><div class="ov-icon">⚡</div><div class="ov-title">連写モード</div><div class="ov-stars">★<span class="e">★★</span></div><div class="ov-desc">ピノナノちゃんを逃さない</div></div>
+      <div class="ov-card" onclick="showTab('focus')"><div class="ov-icon">🎯</div><div class="ov-title">ピントの合わせ方</div><div class="ov-stars">★★<span class="e">★</span></div><div class="ov-desc">AF-S・AF-C・瞳AF</div></div>
+      <div class="ov-card" onclick="showTab('area')"><div class="ov-icon">🔲</div><div class="ov-title">フォーカスエリア</div><div class="ov-stars">★★<span class="e">★</span></div><div class="ov-desc">ワイド・ゾーン・スポット</div></div>
+      <div class="ov-card" onclick="showTab('grid')"><div class="ov-icon">⊞</div><div class="ov-title">グリッド線</div><div class="ov-stars">★<span class="e">★★</span></div><div class="ov-desc">三分割法で構図を決める</div></div>
+      <div class="ov-card" onclick="showTab('thumbaf')"><div class="ov-icon">👍</div><div class="ov-title">親指AF</div><div class="ov-stars">★★★</div><div class="ov-desc">AELボタンのカスタム</div></div>
+    </div>
+  </div>
+
+  <!-- DIAL -->
+  <div class="panel" id="panel-dial">
+    <div class="page-header">
+      <div class="page-title">ダイヤル操作</div>
+      <div class="page-sub">iPhoneから一歩進んで ── 露出を自分でコントロールしよう</div>
+      <div class="difficulty"><span class="stars">★★<span class="e">★</span></span><span>初級〜中級</span></div>
+    </div>
+    <div class="concept">
+      <div class="concept-label">🌱 武笠さんへ・iPhone卒業の第一歩</div>
+      <div class="concept-title">まずは <strong>A（絞り優先）モード</strong> から始めましょう</div>
+      <div class="concept-desc">iPhoneは全自動ですが、α6400は <strong>A（絞り優先）モード</strong> から始めるのがおすすめ。F値（背景のボケ感）だけ自分で決めて、シャッタースピードはカメラ任せ。ピノナノちゃんが花畑に佇む写真のような <strong>ふわっとした背景ボケ</strong> はF値を下げることで生まれます🌸</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">A</div><div class="step-body"><span class="step-tag tag-btn">モードダイヤル（上面右）</span><div class="step-title">撮影モードを「A」にセット</div><div class="step-desc">上面右のモードダイヤルを回して <strong>A（絞り優先）</strong> に合わせます。まずはこのモードに慣れましょう。動きを止めたいときは <strong>S（シャッター優先）</strong>、全部自分で決めるなら <strong>M（マニュアル）</strong> へ。</div></div></div>
+      <div class="step"><div class="step-num">F</div><div class="step-body"><span class="step-tag tag-btn">コントロールホイール回転（背面右）</span><div class="step-title">絞り（F値）を変える</div><div class="step-desc">背面右の <strong>コントロールホイール</strong> を回してF値を変更。<br><br>・<strong>F2.8〜F4</strong>：ピノナノちゃんのアップ（背景ボケ）<br>・<strong>F5.6〜F8</strong>：2頭一緒にクッキリ撮る<br>・<strong>F11〜</strong>：花畑全体と一緒に撮る</div></div></div>
+      <div class="step"><div class="step-num">SS</div><div class="step-body"><span class="step-tag tag-btn">S モード時：コントロールホイール回転</span><div class="step-title">シャッタースピードを変える（S モード）</div><div class="step-desc">走り回るピノナノちゃんを撮るときは <strong>S（シャッター優先）</strong> モードに変更。<strong>1/500〜1/1000</strong> 以上に設定すると動きをピタッと止められます。</div></div></div>
+      <div class="step"><div class="step-num">ISO</div><div class="step-body"><span class="step-tag tag-btn">コントロールホイール右ボタン（ISO）</span><div class="step-title">ISOを設定する</div><div class="step-desc">コントロールホイールの <strong>右ボタン（ISO）</strong> を押してISO設定画面を開きます。または <strong>Fn ボタン</strong> からも変更可能。<br><br>・屋外：<strong>ISO Auto または ISO 100〜400</strong><br>・室内：<strong>ISO 800〜3200</strong><br>・夜間：<strong>ISO 3200〜6400</strong></div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 ピノナノちゃん撮影の設定目安</div><ul><li>花畑・公園（晴天）：Aモード・F2.8〜4・ISO Auto → 花がボケて2頭が際立つ</li><li>室内・薄暗い場所：Aモード・F2.8・ISO 1600〜3200</li><li>走り回るとき：Sモード・SS 1/1000・ISO Auto</li><li>2頭並んで撮るとき：F5.6〜8で両方ピントが合いやすくなります</li></ul></div>
+  </div>
+
+  <!-- DRIVE -->
+  <div class="panel" id="panel-drive">
+    <div class="page-header">
+      <div class="page-title">連写モード</div>
+      <div class="page-sub">ピノナノちゃんの決定的瞬間を逃さない</div>
+      <div class="difficulty"><span class="stars">★<span class="e">★★</span></span><span>初級</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-btn">コントロールホイール 左ボタン（⏱ドライブ）</span><div class="step-title">ドライブモードを開く</div><div class="step-desc">コントロールホイールの <strong>左ボタン（ドライブモード）</strong> を押します。または <strong>Fn ボタン</strong> → ドライブモードからも設定可能です。</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-btn">コントロールホイールで選択</span><div class="step-title">「連続撮影：Hi」を選ぶ</div><div class="step-desc">ホイールを回して <strong>連続撮影 Hi（高速）</strong> を選択。α6400 は最大 <strong>約11コマ／秒</strong> の連写が可能です。ピノナノちゃんが動き回るシーンで大活躍します。</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-btn">シャッターボタン</span><div class="step-title">シャッターを押し続ける</div><div class="step-desc">シャッターを <strong>押し続けている間</strong> 連続撮影されます。ピノナノちゃんが2頭揃って同じ方向を向いた瞬間を狙いましょう✨</div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 連写のポイント</div><ul><li>SDカードは UHS-I V30 以上推奨（書き込みが速いほど連写が続きます）</li><li>2頭撮りは「どちらかの目にピントが合っている瞬間」を後で選ぶ楽しさがあります</li><li>撮った後に「一番いい1枚を選ぶ」のも立派な写真の技術です</li></ul></div>
+  </div>
+
+  <!-- FOCUS -->
+  <div class="panel" id="panel-focus">
+    <div class="page-header">
+      <div class="page-title">ピントの合わせ方</div>
+      <div class="page-sub">ピノナノちゃんの「目」にピントを合わせるのが鉄則🐾</div>
+      <div class="difficulty"><span class="stars">★★<span class="e">★</span></span><span>中級</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">S</div><div class="step-body"><span class="step-tag tag-tip">AF-S（シングルAF）</span><div class="step-title">止まっているとき ── AF-S</div><div class="step-desc">シャッター半押しでピントを合わせて <strong>固定</strong> します。花畑でじっとしているピノナノちゃんなど <strong>動かない被写体</strong> に最適。合うと「ピピッ」と音が鳴ります。</div></div></div>
+      <div class="step"><div class="step-num">C</div><div class="step-body"><span class="step-tag tag-btn">AF-C（コンティニュアスAF）</span><div class="step-title">動いているとき ── AF-C</div><div class="step-desc">半押し中、動く被写体を <strong>追いかけてピントを合わせ続けます</strong>。走り回るピノナノちゃんには <strong>必ずこれ</strong> を使いましょう。</div></div></div>
+      <div class="step"><div class="step-num">切替</div><div class="step-body"><span class="step-tag tag-menu">Fn ボタン → フォーカスモード</span><div class="step-title">AFモードの切り替え方</div><div class="step-desc"><strong>Fn ボタン</strong> を押してファンクションメニューを表示し、フォーカスモードを選択。AF-S・AF-A・AF-C・MF から選びます。または <strong>AF/MF ダイヤル</strong>（上面）からも切り替え可能です。</div></div></div>
+      <div class="step"><div class="step-num">👁</div><div class="step-body"><span class="step-tag tag-menu">MENU → フォーカス → 被写体認識AF</span><div class="step-title">動物AF・瞳AFを使う ⭐</div><div class="step-desc">α6400 には <strong>リアルタイム瞳AF（動物対応）</strong> が搭載されています。<strong>MENU → フォーカス → 被写体認識AF → 「動物」</strong> を選択。<strong>AF-C と組み合わせれば</strong>、ピノナノちゃんの目を自動追従します✨ iPhoneにはできない撮り方です。</div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 ピント設定のポイント</div><ul><li>動物瞳AFは「動物」設定でピノナノちゃんの目を自動検出</li><li>2頭撮りのとき：手前の子の目にピントを合わせると自然なボケが生まれます</li><li>AF-C ＋ 動物瞳AF ＋ 連写の組み合わせが最強です</li><li>液晶タッチでピントを合わせたい目を直接タップすることもできます</li></ul></div>
+  </div>
+
+  <!-- AREA -->
+  <div class="panel" id="panel-area">
+    <div class="page-header">
+      <div class="page-title">フォーカスエリア</div>
+      <div class="page-sub">「どこにピントを合わせるか」の範囲を決める設定</div>
+      <div class="difficulty"><span class="stars">★★<span class="e">★</span></span><span>中級</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">開く</div><div class="step-body"><span class="step-tag tag-btn">Fn ボタン → フォーカスエリア</span><div class="step-title">Fn ボタンから開く</div><div class="step-desc"><strong>Fn ボタン</strong> を押してファンクションメニューを表示。フォーカスエリアを選んでコントロールホイールで変更します。</div></div></div>
+      <div class="step"><div class="step-num">W</div><div class="step-body"><span class="step-tag tag-tip">ワイド ── まず試すならコレ</span><div class="step-title">ワイド</div><div class="step-desc">画面全体でカメラが <strong>自動的に被写体を選んでピント</strong> を合わせます。動物瞳AFと組み合わせれば、ピノナノちゃんの目を自動で捕捉します。<strong>最初はワイドからスタート✨</strong></div></div></div>
+      <div class="step"><div class="step-num">Z</div><div class="step-body"><span class="step-tag tag-btn">ゾーン</span><div class="step-title">ゾーン</div><div class="step-desc">画面内の特定エリアを優先してピントを合わせます。2頭のうち <strong>特定の子にピントを合わせたい</strong> ときに便利です。</div></div></div>
+      <div class="step"><div class="step-num">●</div><div class="step-body"><span class="step-tag tag-menu">フレキシブルスポット</span><div class="step-title">スポット（1点）</div><div class="step-desc">タッチパネルで <strong>ピントを合わせたい場所を直接タップ</strong> できます。ピノナノちゃんそれぞれの目に確実にピントを合わせたいときに最も精度が高い方法です。</div></div></div>
+    </div>
+    <div class="point"><div class="point-label">💡 2頭撮りのフォーカスエリア活用法</div><ul><li>2頭が並んでいる → ワイド＋動物瞳AFでどちらかの目を自動検出</li><li>どちらか1頭だけ撮りたい → スポットでその子の目をタップ</li><li>動き回っている → ゾーンで大まかなエリアを指定して追従</li></ul></div>
+  </div>
+
+  <!-- GRID -->
+  <div class="panel" id="panel-grid">
+    <div class="page-header">
+      <div class="page-title">グリッド線</div>
+      <div class="page-sub">三分割法で構図が決まる！格子線をモニターに表示しよう</div>
+      <div class="difficulty"><span class="stars">★<span class="e">★★</span></span><span>初級</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-menu">MENU ボタン</span><div class="step-title">MENU ボタンを押す</div><div class="step-desc">上面の <strong>MENU ボタン</strong> を押してメニュー画面を表示します。</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-menu">撮影 → 撮影画面表示 → グリッドライン表示 → 入</span><div class="step-title">グリッドライン表示を「入」にする</div><div class="step-desc"><strong>「撮影」タブ → 「撮影画面表示」 → 「グリッドライン表示」</strong> を「入」にして、種類を「3分割」に設定します。</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-tip">交点を意識して構図を決める</span><div class="step-title">「3分割」を選んで構図を決める</div><div class="step-desc">線の <strong>交点（4カ所）</strong> にピノナノちゃんの目を置くと自然に美しい構図になります。2頭を横に並べるときは <strong>左右の交点</strong> を意識してみましょう。</div></div></div>
+    </div>
+    <div class="grid-diagram">
+      <div class="grid-diagram-title">三分割法 ── 2頭並んで撮るときの構図イメージ</div>
+      <svg viewBox="0 0 360 240" width="100%" style="max-width:380px;display:block;margin:0 auto;border-radius:8px;overflow:hidden;">
+        <rect width="360" height="240" fill="#d8e8d0"/>
+        <line x1="120" y1="0" x2="120" y2="240" stroke="#fff" stroke-width="2"/>
+        <line x1="240" y1="0" x2="240" y2="240" stroke="#fff" stroke-width="2"/>
+        <line x1="0" y1="80" x2="360" y2="80" stroke="#fff" stroke-width="2"/>
+        <line x1="0" y1="160" x2="360" y2="160" stroke="#fff" stroke-width="2"/>
+        <circle cx="120" cy="80" r="8" fill="#e69500"/>
+        <circle cx="240" cy="80" r="8" fill="#e69500"/>
+        <circle cx="120" cy="160" r="8" fill="#e69500"/>
+        <circle cx="240" cy="160" r="8" fill="#e69500"/>
+        <ellipse cx="120" cy="125" rx="30" ry="36" fill="none" stroke="#e69500" stroke-width="2" stroke-dasharray="5"/>
+        <text x="120" y="128" text-anchor="middle" fill="#e69500" font-size="9" font-weight="bold" font-family="Noto Sans JP">ピノちゃん</text>
+        <ellipse cx="240" cy="125" rx="30" ry="36" fill="none" stroke="#e69500" stroke-width="2" stroke-dasharray="5"/>
+        <text x="240" y="128" text-anchor="middle" fill="#e69500" font-size="9" font-weight="bold" font-family="Noto Sans JP">ナノちゃん</text>
+        <text x="180" y="225" text-anchor="middle" fill="#aaa" font-size="9" font-family="Noto Sans JP">2頭を左右の交点に配置するイメージ</text>
+      </svg>
+    </div>
+    <div class="point"><div class="point-label">💡 構図のポイント</div><ul><li>2頭を左右の交点に配置すると自然にバランスが取れます</li><li>どちらか1頭だけ撮るときは、進行方向の前に空間を作ると動きが出ます</li><li>花畑撮影では手前の花をぼかして奥のピノナノちゃんにピントを合わせると奥行きが出ます</li></ul></div>
+  </div>
+
+  <!-- THUMB AF -->
+  <div class="panel" id="panel-thumbaf">
+    <div class="page-header">
+      <div class="page-title">親指AF設定</div>
+      <div class="page-sub">AELボタンをカスタムしてプロの撮り方に近づこう</div>
+      <div class="difficulty"><span class="stars">★★★</span><span>上級</span></div>
+    </div>
+    <div class="concept">
+      <div class="concept-label">📖 親指AFとは？</div>
+      <div class="concept-title">シャッターとAFを「分離」する撮り方</div>
+      <div class="concept-desc">通常はシャッター半押しでAFが動きますが、親指AFでは <strong>AELボタンだけでAFを動かし</strong>、シャッターはAFなしで切れるようにします。ピノナノちゃんにピントを合わせたまま構図を自由に変えられるのが最大の利点です。</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><span class="step-tag tag-menu">MENU → セットアップ → 操作カスタマイズ → カスタムキー設定</span><div class="step-title">カスタムキー設定を開く</div><div class="step-desc"><strong>MENU → 「セットアップ」タブ → 「操作カスタマイズ」 → 「カスタムキー設定」</strong> を選択します。</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><span class="step-tag tag-btn">AELボタン → 「AFオン」を割り当て</span><div class="step-title">AELボタンに「AFオン」を割り当て</div><div class="step-desc">一覧から <strong>「AELボタン」</strong> を選択し、<strong>「AFオン」</strong> を割り当てます。</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><span class="step-tag tag-menu">MENU → フォーカス → AF/MF → シャッター半押しAF → 切</span><div class="step-title">シャッター半押しのAFを「切」にする</div><div class="step-desc"><strong>「シャッター半押しAF」</strong> を <strong>「切」</strong> に変更します。これでシャッターはAFなしで切れるようになります。</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><span class="step-tag tag-btn">右親指でAELを押しながら撮影</span><div class="step-title">実際の使い方</div><div class="step-desc">右手親指で <strong>AELボタンを押している間だけAFが動きます</strong>。ピノナノちゃんにピントを合わせたらボタンを離してシャッターを切ります。構図だけ自由に動かせるのが最大の利点です。</div></div></div>
+    </div>
+    <div class="compare">
+      <div class="compare-head">通常AF と 親指AF の違い</div>
+      <div class="compare-body">
+        <div class="compare-col"><div class="compare-col-title">通常AF（初期設定）</div>シャッター半押し → AF動く<br>シャッター全押し → 撮影<br><br><span class="good">✔ 操作がシンプル</span><br><span class="meh">△ ピント固定が難しい</span></div>
+        <div class="compare-col"><div class="compare-col-title" style="color:var(--blue);">親指AF（カスタム後）</div>AELを押す → AF動く<br>シャッター → AFなしで撮影<br><br><span class="good">✔ ピント固定が自在</span><br><span class="good">✔ 2頭撮りでの切り替えが速い</span></div>
+      </div>
+    </div>
+    <div class="point"><div class="point-label">💡 親指AF のポイント</div><ul><li>まず通常のAFに慣れてから挑戦するのがおすすめです</li><li>2頭撮りで「どちらかの子にピント固定 → 構図を変えてもう1頭も入れる」という技が使えます</li><li>元に戻したい場合は「シャッター半押しAF」を「入」に戻すだけです</li></ul></div>
+  </div>
+
+  <div class="copyright">
+    <div class="copyright-brand">© 2026 wan.shutter　- wan.methods -</div>
+    本資料の無断転用・複製・再配布を禁じます。<br>
+    <span style="font-size:0.75rem;color:var(--text-light);">受講者本人のみご使用ください。</span>
+  </div>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if (b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+const hs = {
+  shutter:{ name:'① シャッターボタン（グリップ上部）', desc:'グリップ最上部にあるボタンです。半押しでAFと露出を確定、全押しで撮影します。根元に電源スイッチが配置されています。', tip:'半押しでピノナノちゃんにピントを合わせてから全押しする癖をつけましょう。連写時は押し続けると連続撮影されます。' },
+  mode:   { name:'② モードダイヤル（上面右）', desc:'撮影モードを選ぶダイヤルです。A（絞り優先）・S（シャッター優先）・M（マニュアル）・P（プログラム）・Auto などを切り替えます。', tip:'まずはA（絞り優先）モードから。F値を下げるほど（F2.8など）背景がボケてピノナノちゃんが際立ちます。' },
+  menu:   { name:'③ MENU ボタン（上面中央）', desc:'詳細な設定変更に使うメニューボタンです。グリッド線・動物瞳AF・連写設定など、深い設定はここから変更します。', tip:'よく使う設定は「マイメニュー」に登録しておくと素早くアクセスできます。' },
+  afmf:   { name:'④ AF/MF・AELダイヤル（上面右）', desc:'上に動かすとAF/MFを切り替え、下に動かすとAEL（露出ロック）として機能するダイヤルです。親指AFの設定後はAEL側がAF-ONボタンになります。', tip:'AF/MFの切り替えが上面でできるので、撮影中に素早くMFに切り替えて微調整することもできます。' },
+  fn:     { name:'⑤ Fn（ファンクション）ボタン', desc:'よく使う設定をすばやく変更できるファンクションメニューを開きます。ISO・フォーカスモード・フォーカスエリア・ドライブモードなど撮影中によく変える設定はここで完結します。', tip:'Fnメニューはカスタマイズ可能。よく使う設定を手前に並べましょう。' },
+  wheel:  { name:'⑥ コントロールホイール（背面右）', desc:'背面右の大きな円形ホイールです。回転でF値やSSを変更、上=DISP・右=ISO・左=ドライブモード・下=削除・中央=SET（決定）として機能します。', tip:'AモードでホイールをクルクルとF値を変えながら、液晶のボケ感が変わるのを確認してみましょう✨' },
+  c2:     { name:'⑦ C2（カスタムボタン2）', desc:'背面右下にあるカスタムボタンです。よく使う機能を自由に割り当てられます。動物瞳AFのON/OFFや、フォーカスエリア切り替えなどに便利です。', tip:'MENU → セットアップ → 操作カスタマイズ → カスタムキー設定から割り当て変更できます。' },
+};
+function showHotspot(key) {
+  const d = hs[key];
+  document.getElementById('info-name').textContent = d.name;
+  document.getElementById('info-desc').textContent = d.desc;
+  const tip = document.getElementById('info-tip');
+  tip.textContent = d.tip;
+  tip.style.display = 'block';
+  document.querySelectorAll('.hotspot').forEach(h => h.classList.remove('active'));
+  document.getElementById('hs-' + key).classList.add('active');
+}
+</script>
+</body>
+</html>
